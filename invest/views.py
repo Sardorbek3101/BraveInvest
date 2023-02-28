@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from django.views import View
+from .models import Book
 from invest.forms import UserCreateForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
@@ -45,3 +46,34 @@ class UserLogoutView(View):
         logout(request)
         messages.info(request, "You have successfully logged out.")
         return redirect("home")
+
+
+class ContactUsView(View):
+    def get(self, request):
+        return render(request, "contacts_us.html")
+    
+
+class SelfImprovementDetailView(View):
+    def get(self, request):
+        return render(request, "selfimprovementdetail.html")
+
+
+class InvestmentDetailView(View):
+    def get(self, request):
+        return render(request, "investment_detail.html")
+    
+
+class BooksView(View):
+    def get(self, request):
+        books = Book.objects.all()
+        return render(request, "books.html", {"books":books})
+    
+
+class BookDetailView(View):
+    def get(self, request, id):
+        try:
+            book = Book.objects.get(id=id)
+        except:
+            messages.warning(request, "По вашему запросу книг не найдено")
+            return redirect("books")
+        return render(request, "book_detail.html", {"book":book})

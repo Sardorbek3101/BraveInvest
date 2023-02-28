@@ -1,11 +1,30 @@
+
 .nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: #f0f8ff;
+    /* background-color: #f0f8ff; */
+    /* background-color: #090e23c9; */
+    background-color: #090e23e0;
     position: sticky;
+    padding: 10px 0;
+    background-position: center;
+    top: 0;
+    width: 100%;
+}
+.fixed-nav{
+    position: fixed;
+}
+
+
+header{
+    position: sticky;
+    top: 0;
     z-index: 50;
 }
+.nav-logo h3 {
+    font-weight: revert;
+}   
 .nav-links ul {
     display: flex;
     list-style: none;
@@ -15,7 +34,199 @@
 .nav-links li {
     margin: auto 30px;
 }
-header {
-    position: sticky;
-    top: 0;
+
+.nav-logo{
+    display: flex;
+    align-items: center;
+    font-family: initial;
 }
+.nav-logotip {
+    width: 75px;
+    height: 50px;
+    border-radius: 50%;
+}
+.nav-logo a {
+    display: flex;
+    text-decoration: none;
+    color: #fff;
+    align-items: center;
+}
+.header{
+    background-image: url(../images/photo_2023-02-14_09-32-15.jpg);
+    height: 755px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 100%;
+}
+.nav-links a {
+    text-decoration: none;
+    color: #fff;
+    transition: 0.3s;
+}
+
+.nav-links a {
+    position: relative;
+}
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    transition: 0.5s;
+    background-color: yellowgreen;
+    border-radius: 15px;
+    bottom: -6px;
+    height: 3.5px;
+    left: 0;
+    margin: auto;
+    right: 0;
+}
+.nav-links a:hover:after {
+    width: 100%;
+}
+
+div#nav h3 {
+    margin: 0;
+}
+.carousel-caption {
+    position: absolute;
+    right: auto;
+    padding-top: 0;
+    font-weight: 700;
+    bottom: 60%;
+    left: 15%;
+    padding-bottom: 0;
+    color: #fff;
+    text-align: unset;
+    width: 40%;
+}
+.cards-accordions {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+.card-caccordion h1 {
+    font-size: 35px;
+    margin-bottom: 30px;
+}
+a.contacts-card-link {
+    text-decoration: none;
+    width: 40%;
+}
+.contacts-cards {
+    display: flex;
+    margin-top: 50px;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.contacts-cards h3 {
+    letter-spacing: 1.5px;
+    font-family: auto;
+    margin-bottom: 20px;
+    font-size: 35px;
+}
+.contacts-card {
+    width: 40%;
+    border-radius: 35px;
+    background-color: #e9f1f9;
+    color: black;
+    transition: 0.4s;
+    /* border: solid 1px; */
+    cursor: pointer;
+    padding: 10px 35px;
+    text-align: center;
+}
+.contacts-card img {
+    width: 100%;
+    border-radius: 30px;
+}
+.contacts-card:hover {
+    box-shadow: 0px 0px 25px 0px #97a1d0;
+}
+.contacts-card img {
+    width: 100%;
+    /* width: 500px; */
+    /* height: 500px; */
+}
+.w-100 {
+    height: 800px;
+}
+
+.login-post-class{
+    margin: auto;
+    margin-top: 70px;
+}
+.informs {
+    margin: 60px auto;
+    width: 40%;
+}
+.informs h3 {
+    font-size: 30px;
+    /* text-align: center; */
+}
+.informs p {
+    font-size: 20px;
+    /* text-align: center; */
+}
+.informs ul {
+    font-family: sans-serif;
+    line-height: 200%;
+    font-size: 20px;
+}
+.center-card{
+    width: 50%;
+    margin: 30px auto 0;
+}
+.investment p{
+    line-height: 199%;
+}
+.books {
+    width: 80%;
+    margin: auto;
+}
+.book-detail {
+    margin: 50px auto;
+    display: flex;
+    justify-content: space-evenly;
+}   
+.book-cover_picture {
+    width: 20%;
+}
+.book-cover_picture img{
+    border: solid 4px #090e23e0;
+}
+.book-cover_picture img {
+    width: 100%;
+}
+.book-description {
+    width: 50%;
+}
+/* .login_containner{
+    background-color: #020512d9;
+    width: 100%;
+    height: 100%;
+} */
+/* #020512d9 */
+/* .nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #f0f8ff57;
+    position: fixed;
+    padding: 15px 0;
+    background-position: center;
+    top: 0;
+    width: 100%;
+}
+.nav-logo a {
+    display: flex;
+    text-decoration: none;
+    color: #afad;
+    align-items: center;
+}
+.nav-links a {
+    text-decoration: none;
+    color: #afad;
+    transition: 0.3s;
+} */
