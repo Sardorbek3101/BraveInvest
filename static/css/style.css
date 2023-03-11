@@ -16,6 +16,9 @@
     position: fixed;
 }
 
+.nav-user{
+    color: white ;
+}
 
 header{
     position: sticky;

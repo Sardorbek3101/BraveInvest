@@ -37,8 +37,7 @@
             </div>
             <div class="nav-user">
                 {% if request.user.is_authenticated %}
-                    {{ request.user.username }}
-                    <a class="btn btn-outline-primary" href="{% url 'logout' %}">Logout</a>
+                    <a style="font-size:30px"><i class="bi bi-list"></i></a>
                 {% else %}
                     <a class="btn btn-outline-info" href="{% url 'login' %}">Login</a>
                     <a class="btn btn-outline-warning" href="{% url 'user_register' %}">Signup</a>

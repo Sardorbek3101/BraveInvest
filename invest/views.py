@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.views import View
-from .models import Book
+from .models import Book, Author
 from invest.forms import UserCreateForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
@@ -77,3 +77,9 @@ class BookDetailView(View):
             messages.warning(request, "По вашему запросу книг не найдено")
             return redirect("books")
         return render(request, "book_detail.html", {"book":book})
+    
+
+class AuthorView(View):
+    def get(self, request, id):
+        author = Author.objects.get(id=id)
+        return render(request, "author.html", {"author":author})

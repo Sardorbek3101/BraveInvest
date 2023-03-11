@@ -8,6 +8,11 @@
     </div>
     <div class="book-description">
         <a href="#"><h5>{{ book.title }}</h5></a>
+        {% if book.bookauthor_set.all %}
+        {% for ba in book.bookauthor_set.all %}
+            <a href="{% url 'author' ba.author.id %}">{{ ba.author.first_name }} {{ ba.author.last_name }}</a>{% if not forloop.last %},{% endif %}
+        {% endfor %}
+        {% endif %} 
         <p>{{ book.description }}<br></p>
     </div>
     </div>
