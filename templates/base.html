@@ -11,12 +11,37 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     <title>{% block title %}BraveInvest{% endblock title %}</title>
-        {% comment %} <style>
+    {% if request.user.black_theme %}
+        <style>
             body{
-                background-color:black;
+                background-color: #212529;
+                color: #fff;
             }
-        </style> {% endcomment %}
-
+            .contacts-card {
+                background-color: #2b3035;
+                color: #fff;
+            }
+            .accordion{
+                --bs-accordion-color: #fff;
+                --bs-accordion-bg: #212529;
+                --bs-accordion-btn-color: #fff;
+            }
+            .accordion-button:not(.collapsed) {
+                color: #fff;
+                background-color: #212529;
+            }
+            .book-cover_picture img {
+                border: solid 4px yellowgreen;
+            }
+            .book-description a{
+                color:#fff;
+            }
+            .contacts-card:hover {
+                box-shadow: 0px 0px 15px 0px #97a1d0 ;
+                transition: 0.5s
+            }
+        </style>
+    {% endif %}
 </head>
 <body>
     <header>
@@ -35,21 +60,60 @@
                     <li><a href="#">About us</a></li>
                 </ul>
             </div>
-            <div class="nav-user">
-                {% if request.user.is_authenticated %}
-                    <a style="font-size:30px"><i class="bi bi-list"></i></a>
-                {% else %}
-                    <a class="btn btn-outline-info" href="{% url 'login' %}">Login</a>
-                    <a class="btn btn-outline-warning" href="{% url 'user_register' %}">Signup</a>
-                {% endif %}
+            <div class="nav-aside-burger">
+                <a href="#" style="font-size:30px; color:#fff"><i class="bi bi-list"></i></a>
+                <div class="nav-aside">
+                    <div class="nav-aside-box">
+                        <div class="window-theme">
+                            {% if request.user.black_theme %}
+                                <form action="{% url 'black_window_del' %}" method="post">{% csrf_token %}
+                                    <input type="hidden" value="{{request.path}}" name="path">
+                                    <button type="submit"><i class="bi bi-sun-fill"></i></button>
+                                </form>
+                            {% else %}
+                            <form action="{% url 'black_window' %}" method="post">{% csrf_token %}
+                                <input type="hidden" value="{{request.path}}" name="path">
+                                <button type="submit"><i class="bi bi-moon-stars-fill"></i></button>
+                            </form>
+                            {% endif %}
+                        </div>
+                        {% if request.user.is_authenticated %}
+                            <a class="aside-profile-link" href="{% url 'profile' %}">
+                            <div class="nav-aside-user logined">
+                                <div class="nav-aside-user-img">
+                                    <img src="{{ request.user.profile_picture.url }}" alt="">
+                                    <h4>{{ request.user.username }}</h4>
+                                </div>
+                                    <div class="nav-aside-user-full_name">
+                                        <h6>{{ request.user.first_name }} {{ request.user.last_name }}</h6>
+                                    </div>
+                            </div>
+                            </a>
+                        {% else %}
+                            <div class="nav-aside-user">
+                                <a class="btn btn-outline-info" href="{% url 'login' %}">Login</a>
+                                <a class="btn btn-outline-warning" href="{% url 'user_register' %}">Signup</a>
+                            </div>
+                            {% endif %}
+                        <div class="nav-aside-links">
+                            <h3>Menu</h3>
+                            <ul>
+                                <li><a href="#">link</a></li>
+                                <li><a href="#">link</a></li>
+                                <li><a href="#">link</a></li>
+                                <li><a href="{% url 'logout' %}">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
     <main>
         {% if messages %}
             {% for message in messages %}
-                <div class="mt-4">
-                    <div class="alert alert-{{ message.tags }}" role="alert">
+                <div class="message">
+                    <div class="msg-{{ message.tags }}" role="alert">
                         {{ message }}
                     </div>
                 </div>
@@ -73,3 +137,5 @@
     }
 </script>
 </html>
+
+

@@ -2,6 +2,11 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 
+class User(AbstractUser):
+    black_theme = models.BooleanField(default=False)
+    profile_picture = models.ImageField(blank=True, null=True)
+
+
 class Book(models.Model):
     title = models.CharField(max_length=200)
     cover_picture = models.ImageField()
@@ -29,6 +34,3 @@ class BookAuthor(models.Model):
     def __str__(self):
         return f"{self.book.title} {self.author.first_name} {self.author.last_name}"
 
-
-class User(AbstractUser):
-    black_theme = models.BooleanField(default=False)
