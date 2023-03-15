@@ -2,8 +2,8 @@ from django.shortcuts import redirect, render
 from django.views import View
 from .models import Book, Author
 from invest.forms import UserCreateForm
+from django.core.paginator import Paginator
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login, logout
 from django.contrib import messages
 
@@ -67,7 +67,13 @@ class InvestmentDetailView(View):
 class BooksView(View):
     def get(self, request):
         books = Book.objects.all()
-        return render(request, "books.html", {"books":books})
+        search = request.GET.get("q", "")
+        if search:
+            books = books.filter(title__icontains=search)
+        pagenator = Paginator(books, 4)
+        page_num = request.GET.get("page", 1)
+        books_page = pagenator.get_page(page_num)
+        return render(request, "books.html", {"books":books_page, "search":search})
     
 
 class BookDetailView(View):
@@ -92,19 +98,25 @@ class ProfileView(View):
        return render(request, "profile.html", {"user":user})
 
 
-class BlackWindowView(LoginRequiredMixin,View):
+class BlackWindowView(View):
     def post(self, request):
-        path = request.POST['path']
-        request.user.black_theme = True
-        request.user.save()
-        return redirect(path)
+        if request.user.is_authenticated:
+            path = request.POST['path']
+            request.user.black_theme = True
+            request.user.save()
+            return redirect(path)
+        else:
+            return redirect("login") 
     
 
-class BlackWindowDelView(LoginRequiredMixin,View):
+class BlackWindowDelView(View):
     def post(self, request):
-        path = request.POST['path']
-        print(path)
-        print('salom')
-        request.user.black_theme = False
-        request.user.save()
-        return redirect(path)
+        if request.user.is_authenticated:
+            path = request.POST['path']
+            print(path)
+            print('salom')
+            request.user.black_theme = False
+            request.user.save()
+            return redirect(path)
+        else:
+            return redirect("login") 

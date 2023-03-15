@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
+<div class="boks-search">
+    <form method="get" class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+</div>
 <div class="books">
     {% for book in books %}
     <div class="book-detail">
@@ -13,5 +19,18 @@
     </div>
     </div>
     {% endfor %}
+</div>
+<div class="books-pagination">
+    <ul class="pagination">
+    {% if books.has_previous %}
+      <li class="page-item"><a class="page-link" href="{% if search %}?q={{ search }}{% endif %}&page=1">Firs</a></li>
+      <li class="page-item"><a class="page-link" href="{% if search %}?q={{ search }}{% endif %}&page={{ books.previous_page_number }}">Previous</a></li>
+    {% endif %}
+      <li class="page-item active"><a class="page-link" href="#">{{ books.number }}</a></li>
+    {% if books.has_next %}
+      <li class="page-item"><a class="page-link" href="{% if search %}?q={{ search }}{% endif %}&page={{ books.next_page_number }}">Next</a></li>
+      <li class="page-item"><a class="page-link" href="{% if search %}?q={{ search }}{% endif %}&page={{ books.paginator.num_pages }}">Last</a></li>
+    {% endif %}
+    </ul>
 </div>
 {% endblock content %}

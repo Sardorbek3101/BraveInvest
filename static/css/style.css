@@ -286,6 +286,14 @@ a.contacts-card-link {
     transition: 0.4s;
 }
 .nav-aside-burger:focus-within .nav-aside{right: 0}
+.boks-search{
+    width: 40%;
+    margin: 40px auto 0;
+}
+.books-pagination{
+    width: 65%;
+    margin: auto;
+}
 /* .login_containner{
     background-color: #020512d9;
     width: 100%;
