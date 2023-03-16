@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block content %}
 
+{% block header %}
 <div id="carouselExampleDark" class="carousel carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -35,7 +35,8 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
-
+  {% endblock header %}
+  {% block content %}
   <div class="cards-accordions">
     <a class="contacts-card-link" href="{% url 'books' %}">
     <div style="width:100%" class="contacts-card">

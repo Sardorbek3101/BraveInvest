@@ -23,13 +23,13 @@
 <div class="books-pagination">
     <ul class="pagination">
     {% if books.has_previous %}
-      <li class="page-item"><a class="page-link" href="{% if search %}?q={{ search }}{% endif %}&page=1">Firs</a></li>
-      <li class="page-item"><a class="page-link" href="{% if search %}?q={{ search }}{% endif %}&page={{ books.previous_page_number }}">Previous</a></li>
+      <li class="page-item"><a class="page-link" href="?page=1{% if search %}&q={{ search }}{% endif %}">Firs</a></li>
+      <li class="page-item"><a class="page-link" href="?page={{ books.previous_page_number }}{% if search %}&q={{ search }}{% endif %}">Previous</a></li>
     {% endif %}
       <li class="page-item active"><a class="page-link" href="#">{{ books.number }}</a></li>
     {% if books.has_next %}
-      <li class="page-item"><a class="page-link" href="{% if search %}?q={{ search }}{% endif %}&page={{ books.next_page_number }}">Next</a></li>
-      <li class="page-item"><a class="page-link" href="{% if search %}?q={{ search }}{% endif %}&page={{ books.paginator.num_pages }}">Last</a></li>
+      <li class="page-item"><a class="page-link" href="?page={{ books.next_page_number }}{% if search %}&q={{ search }}{% endif %}">Next</a></li>
+      <li class="page-item"><a class="page-link" href="?page={{ books.paginator.num_pages }}{% if search %}&q={{ search }}{% endif %}">Last</a></li>
     {% endif %}
     </ul>
 </div>

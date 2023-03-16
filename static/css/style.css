@@ -10,6 +10,7 @@
     background-position: center;
     top: 0;
     width: 100%;
+    z-index: 100;
 }
 .fixed-nav{
     position: fixed;
@@ -19,10 +20,9 @@
     color: white ;
 }
 
-header{
-    position: sticky;
-    top: 0;
-    z-index: 50;
+.messagee{
+    width: 80%;
+    margin: auto;
 }
 .nav-logo h3 {
     font-weight: revert;
@@ -254,7 +254,6 @@ a.contacts-card-link {
     margin-bottom: 14px;
 }
 .nav-aside-user{
-    margin-top: 70px;
     padding: 8px 0;
 }
 .aside-profile-link{

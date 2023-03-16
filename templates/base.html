@@ -108,12 +108,13 @@
                 </div>
             </div>
         </div>
+        {% block header %}{% endblock header %}
     </header>
     <main>
         {% if messages %}
             {% for message in messages %}
-                <div class="message">
-                    <div class="msg-{{ message.tags }}" role="alert">
+                <div class="mt-4">
+                    <div class="alert alert-{{ message.tags }} messagee" role="alert">
                         {{ message }}
                     </div>
                 </div>
