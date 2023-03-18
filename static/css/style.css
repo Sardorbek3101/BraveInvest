@@ -289,9 +289,19 @@ a.contacts-card-link {
     width: 40%;
     margin: 40px auto 0;
 }
+.boks-search input{
+    border-radius: 30px;
+}
 .books-pagination{
     width: 65%;
     margin: auto;
+}
+.about_text {
+    margin: 70px auto;
+    font-size: 20px;
+    line-height: 200%;
+    width: 40%;
+    /* font-weight: 400; */
 }
 /* .login_containner{
     background-color: #020512d9;

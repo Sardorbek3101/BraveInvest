@@ -1,6 +1,6 @@
 from django.urls import path
 from invest.views import HomeView, UserRegisterView, UserLoginView, UserLogoutView, ContactUsView, SelfImprovementDetailView,\
-    InvestmentDetailView, BooksView, BookDetailView, AuthorView, ProfileView, BlackWindowView, BlackWindowDelView
+    InvestmentDetailView, BooksView, BookDetailView, AuthorView, ProfileView, BlackWindowView, BlackWindowDelView, AboutUsView
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
@@ -16,5 +16,6 @@ urlpatterns = [
     path("users/profile/", ProfileView.as_view(), name="profile"),
     path("users/black/window/activate/", BlackWindowView.as_view(), name="black_window"),
     path("users/black/window/deactivate/", BlackWindowDelView.as_view(), name="black_window_del"),
+    path("about/us/", AboutUsView.as_view(), name="about_us")
     
 ]

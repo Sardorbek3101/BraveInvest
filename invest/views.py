@@ -54,6 +54,11 @@ class ContactUsView(View):
         return render(request, "contacts_us.html")
     
 
+class AboutUsView(View):
+    def get(self, request):
+        return render(request, "about_us.html")
+    
+
 class SelfImprovementDetailView(View):
     def get(self, request):
         return render(request, "selfimprovementdetail.html")
