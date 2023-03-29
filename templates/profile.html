@@ -5,4 +5,5 @@
 <h5>{{ user.username }}</h5>
 <h6>{{ user.first_name }} {{ user.last_name }}</h6>
 <p>{{ user.email }}</p>
+<a href="{% url 'admin_page' %}">Управление сайтом</a>
 {% endblock content %}

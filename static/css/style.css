@@ -1,3 +1,18 @@
+html, body {
+  height: 100%;
+  background-color: #f2f3f4;
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+main{
+    flex: 1 1 auto;
+}
+footer{
+    flex: 0 0 auto;
+}
 .nav {
     display: flex;
     justify-content: space-around;
@@ -131,7 +146,8 @@ a.contacts-card-link {
 .contacts-card {
     width: 40%;
     border-radius: 35px;
-    background-color: #e9f1f9;
+    /* background-color: #e9f1f9; */
+    background-color: #fff;
     color: black;
     transition: 0.4s;
     cursor: pointer;
@@ -147,9 +163,6 @@ a.contacts-card-link {
 }
 .contacts-card img {
     width: 100%;
-}
-.w-100 {
-    height: 800px;
 }
 
 .login-post-class{
@@ -297,11 +310,162 @@ a.contacts-card-link {
     margin: auto;
 }
 .about_text {
-    margin: 70px auto;
+    margin: 40px auto;
     font-size: 20px;
     line-height: 200%;
     width: 40%;
     /* font-weight: 400; */
+}
+.base-footer {
+    background-color: #090e23e0;
+    margin: 20px 0 0px;
+    display: flex;
+    padding: 18px 150px;
+    align-items: center;
+    font-size: 18px;
+    justify-content: space-between;
+    color: #fff;
+}
+.foot-sot-links p {
+    margin: 0;
+    font-size: 15px;
+    color: #797979;
+    margin: 0px;
+}
+.foot-links ul {
+    line-height: 210%;
+}
+.base-footer ul {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+}
+
+.base-footer a {
+    color: white;
+    text-decoration: none;
+}
+.foot-sot-links ul {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.foot-sot-links {
+    text-align: center;
+}
+a.foot-sot-contact-link {
+    font-size: 20px;
+}
+.foot-sot-links li {
+    margin: 0 15px;
+    font-size: 22px;
+}
+.foot-links li a{
+    position: relative;
+}
+.foot-links li a:after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    transition: 0.5s;
+    background-color: yellowgreen;
+    border-radius: 15px;
+    bottom: -6px;
+    height: 3px;
+    left: 0;
+    margin: auto;
+    
+}
+.foot-links li a:hover:after{
+    width: 100%;
+}
+a.nav-link-active:after {
+    width: 100%;
+}
+.staff_link h5 a {
+    color: black;
+    text-decoration: none;
+}
+.ras-link{
+    display: none;
+}
+.staff_link {
+    background-color: #090e23e0;
+    width: 50%;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 18px;
+    margin: auto;
+    color: #fff;
+}
+.staff_links{
+    text-align: center;
+}
+.staff_links h3{
+    margin: 15px 0;
+}
+.zag-oknno {
+    /* background-color: aquamarine; */
+    background-image:linear-gradient( rgb(0 0 0 / 40%), rgb(0 0 0 / 40%) ), url(../images/kal-amaki.jpg);
+    height: 450px;
+    display: flex;
+    align-items: center;
+    color: white;
+    /* text-align: center; */
+    background-size: cover;
+    background-position: center;
+    justify-content: center;
+}
+.admin-containner {
+    width: 80%;
+    margin: 20px auto;
+}
+.admin-boxes {
+    display: flex;
+    justify-content: space-evenly;
+}
+a.admin-box {
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    width: 18%;
+    /* color: black; */
+    background-color: white;
+    padding: 5px 0;
+    border-radius: 5px;
+    box-shadow: 0px 0px 1px 0px #555;
+}
+a.admin-box h3{
+    font-size: 25px;
+}
+.admin-box h6 {
+    color: #555;
+    /* font-family: inherit; */
+    letter-spacing: 2px;
+    font-size: 15px;
+}
+.admin-table {
+    box-shadow: 0px 0px 5px 0px #555;
+    margin-top: 50px;
+    padding: 15px;
+}
+.admin-table-line {
+    display: flex;
+    /* background-color: white; */
+    justify-content: space-between;
+    margin: 15px;
+}
+.admin-table-column {
+    width: 15%;
+    text-align: center;
+    background-color: white;
+}
+.admin-image-column {
+    height: 30px;
+    width: 0%;
+}   
+.admin-image-column img{
+    height: 100%;
 }
 /* .login_containner{
     background-color: #020512d9;

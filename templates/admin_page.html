@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="admin-containner">
+
+<div class="admin-boxes">
+    <a class="admin-box" href="?table=users">
+        <h3>Users</h3>
+        <h6>1000</h6>  
+        
+    </a>
+    <a class="admin-box" href="?table=books">
+        <h3>Books</h3>
+        <h6>1000</h6> 
+        
+    </a>
+    <a class="admin-box" href="?table=authors">
+        <h3>Authors</h3>
+        <h6>1000</h6> 
+    </a>
+    <a class="admin-box" href="?table=book_authors">
+        <h3>Book Authors</h3>
+        <h6>1000</h6> 
+    </a>
+
+</div>
+<div class="admin-table">
+    {% if table_value == "users" %}
+    <div class="admin-table-line admin-table-glav-line">
+        <div class="admin-image-column">
+        </div>
+        <div class="admin-table-column">
+            Username
+        </div>
+        <div class="admin-table-column">
+            First Name
+        </div>
+        <div class="admin-table-column">
+            Last Name
+        </div>
+        <div class="admin-table-column">
+           Email
+        </div>
+        <div class="admin-table-column">
+            Status
+        </div>
+    </div>
+    <hr>
+        {% for user in table %}
+            <div class="admin-table-line">
+                <div class="admin-image-column">
+                    {% if user.profile_picture %}
+                        <img src="{{ user.profile_picture.url }}" alt="">
+                    {% endif %}
+                </div>
+                <div class="admin-table-column">
+                    {{ user.username }}
+                </div>
+                <div class="admin-table-column">
+                    {{ user.first_name }}
+                </div>
+                <div class="admin-table-column">
+                    {{ user.last_name }}
+                </div>
+                <div class="admin-table-column">
+                   {{ user.email }} 
+                </div>
+                <div class="admin-table-column">
+                    {% if user.is_superuser %}
+                        Super Admin
+                    {% elif user.is_staff %}
+                        Admin
+                    {% else %}
+                        Active
+                    {% endif %}
+                </div>
+                
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>    
+</div>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} <div class="staff_links">
+<h3>Управление сайтом</h3>
+<div class="staff_link">
+    <details>
+        <summary>Users</summary>
+        <a href="#">All users</a>
+    </details>      
+</div>
+<hr>
+<div class="staff_link">
+    <details>
+        <summary>Books</summary>
+        <a href="#">Create book</a>
+    </details>      
+</div>
+<hr>
+<div class="staff_link">
+    <details>
+        <summary>Authors</summary>
+        <a href="#">Create author</a>
+    </details>      
+</div>
+<hr>
+<div class="staff_link">
+    <details>
+        <summary>Book author</summary>
+        <a href="#">create book author</a>
+    </details>
+</div>
+</div> {% endcomment %}

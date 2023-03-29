@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.views import View
-from .models import Book, Author
+from .models import Book, Author, User, BookAuthor
 from invest.forms import UserCreateForm
 from django.core.paginator import Paginator
 from django.contrib.auth.forms import AuthenticationForm
@@ -125,3 +125,27 @@ class BlackWindowDelView(View):
             return redirect(path)
         else:
             return redirect("login") 
+
+
+class AdminPageView(View):
+    def get(self, request):
+        if request.user.is_staff:
+            get_table = request.GET.get("table", "users")
+            if get_table == "users":
+                table = User.objects.all()
+                table_value = "users"
+            elif get_table == "books":
+                table = Book.objects.all()
+                table_value = "books"
+            elif get_table == "authors":
+                table = Author.objects.all()
+                table_value = "authors"
+            elif get_table == "book_auhors":
+                table = BookAuthor.objects.all()
+                table_value = "book_auhors"
+            else:
+                table = ""
+                table_value = ""
+            return render(request, "admin_page.html", {"table":table, "table_value":table_value})
+        else:
+            return redirect("home")
