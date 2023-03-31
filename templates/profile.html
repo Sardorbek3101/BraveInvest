@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 <h3>Profile</h3>
+{% if user.profile_picture %}
 <img style="width:100px" src="{{ user.profile_picture.url }}" alt="">
+{% endif %}
 <h5>{{ user.username }}</h5>
 <h6>{{ user.first_name }} {{ user.last_name }}</h6>
 <p>{{ user.email }}</p>
+{% if user.is_staff %}
 <a href="{% url 'admin_page' %}">Управление сайтом</a>
+{% endif %}
 {% endblock content %}

@@ -436,7 +436,7 @@ a.admin-box {
     box-shadow: 0px 0px 1px 0px #555;
 }
 a.admin-box h3{
-    font-size: 25px;
+    font-size: 22px;
 }
 .admin-box h6 {
     color: #555;
@@ -451,21 +451,66 @@ a.admin-box h3{
 }
 .admin-table-line {
     display: flex;
+    padding: 15px;
     /* background-color: white; */
+    transition: 0.3s;
+    cursor: pointer;
     justify-content: space-between;
-    margin: 15px;
+    /* margin: 15px; */
 }
 .admin-table-column {
     width: 15%;
+    height: 30px;
     text-align: center;
+    overflow: auto;
     background-color: white;
 }
-.admin-image-column {
-    height: 30px;
-    width: 0%;
-}   
-.admin-image-column img{
+.admin-table-glav-line {
+    position: sticky;
+}
+.admin-table-glav-line .admin-table-column {
+    box-shadow: 0 0 5px 0 #555;
+    background: none;
+}
+.admin-table-line:hover {
+    box-shadow: 0 0 5px #555;
+}
+.admin-table-glav-line:hover {
+    box-shadow: none;
+}
+.admin-table-column-id {
+    width: 5%;
+}
+.admin-table-column-image {
+    width: 5%;
+}
+.admin-table-column-image img {
     height: 100%;
+}
+.admin-table-column-settings {
+    width: 6%;
+    overflow: unset;
+}
+a.admin-table-set-link{
+    color: black;
+    font-size: 20px;
+    text-decoration: none;
+}
+.admin-table-create{
+    padding: 8px;
+}
+.admin-table-create a.admin-table-line {
+    text-decoration: none;
+    color: black;
+    justify-content: unset;
+    font-size: 18px;
+}
+.admin-table-create a.admin-table-line:hover {
+    font-size: 20px;
+}
+.create-containner {
+    margin: 50px auto;
+    width: 60%;
 }
 /* .login_containner{
     background-color: #020512d9;

@@ -5,28 +5,53 @@
 <div class="admin-boxes">
     <a class="admin-box" href="?table=users">
         <h3>Users</h3>
-        <h6>1000</h6>  
+        <h6>{% if table_value == "users" %}{{ table.count }}{% else %}?{% endif %}</h6>  
         
     </a>
     <a class="admin-box" href="?table=books">
         <h3>Books</h3>
-        <h6>1000</h6> 
+        <h6>{% if table_value == "books" %}{{ table.count }}{% else %}?{% endif %}</h6> 
         
     </a>
     <a class="admin-box" href="?table=authors">
         <h3>Authors</h3>
-        <h6>1000</h6> 
+        <h6>{% if table_value == "authors" %}{{ table.count }}{% else %}?{% endif %}</h6> 
     </a>
     <a class="admin-box" href="?table=book_authors">
         <h3>Book Authors</h3>
-        <h6>1000</h6> 
+        <h6>{% if table_value == "book_authors" %}{{ table.count }}{% else %}?{% endif %}</h6> 
     </a>
 
 </div>
+{% if table_value == "books" %}
+<div class="admin-table admin-table-create">
+    <a class="admin-table-line" href="{% url 'book_create' %}">
+        <i class="bi bi-database-add"></i> &nbsp Add Book
+    </a>
+</div>
+{% endif %}
+{% if table_value == "authors" %}
+<div class="admin-table admin-table-create">
+    <a class="admin-table-line" href="">
+        <i class="bi bi-database-add"></i> &nbsp Add Author
+    </a>
+</div>
+{% endif %}
+{% if table_value == "book_authors" %}
+<div class="admin-table admin-table-create">
+    <a class="admin-table-line" href="">
+        <i class="bi bi-database-add"></i> &nbsp Add Book Author
+    </a>
+</div>
+{% endif %}
 <div class="admin-table">
     {% if table_value == "users" %}
     <div class="admin-table-line admin-table-glav-line">
-        <div class="admin-image-column">
+        <div class="admin-table-column admin-table-column-image">
+            img
+        </div>
+        <div class="admin-table-column admin-table-column-id">
+            Id
         </div>
         <div class="admin-table-column">
             Username
@@ -43,17 +68,23 @@
         <div class="admin-table-column">
             Status
         </div>
+        <div class="admin-table-column admin-table-column-settings ">
+            Settings
+        </div>
     </div>
     <hr>
         {% for user in table %}
             <div class="admin-table-line">
-                <div class="admin-image-column">
+                <div class="admin-table-column admin-table-column-image">
                     {% if user.profile_picture %}
                         <img src="{{ user.profile_picture.url }}" alt="">
                     {% endif %}
                 </div>
+                <div class="admin-table-column admin-table-column-id">
+                    {{ user.id }}
+                </div>
                 <div class="admin-table-column">
-                    {{ user.username }}
+                    <a href="{% url 'profile' user.id %}">{{ user.username }}</a>
                 </div>
                 <div class="admin-table-column">
                     {{ user.first_name }}
@@ -73,9 +104,181 @@
                         Active
                     {% endif %}
                 </div>
-                
+                <div class="admin-table-column admin-table-column-settings">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle admin-table-set-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">...</a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="#">Delete</a></li>
+                        </ul>
+                      </div>
+                </div>
             </div>
         {% endfor %}
+    {% elif table_value == "books" %}
+    <div class="admin-table-line admin-table-glav-line">
+        <div class="admin-table-column admin-table-column-image">
+            img
+        </div>
+        <div class="admin-table-column admin-table-column-id">
+            Id
+        </div>
+        <div class="admin-table-column">
+            Title
+        </div>
+        <div class="admin-table-column">
+            Description
+        </div>
+        <div class="admin-table-column">
+            Pdf
+        </div>
+        <div class="admin-table-column">
+            Author
+        </div>
+        <div class="admin-table-column admin-table-column-settings ">
+            Settings
+        </div>
+    </div>
+    <hr>
+        {% for book in table %}
+            <div class="admin-table-line">
+                <div class="admin-table-column admin-table-column-image">
+                    {% if book.cover_picture %}
+                        <img src="{{ book.cover_picture.url }}" alt="">
+                    {% endif %}
+                </div>
+                <div class="admin-table-column admin-table-column-id">
+                    {{ book.id }}
+                </div>
+                <div class="admin-table-column">
+                    {{ book.title }}
+                </div>
+                <div class="admin-table-column">
+                    {{ book.description }}
+                </div>
+                <div class="admin-table-column">
+                    {% if book.pdf %}
+                        True
+                    {% else %}
+                        False
+                    {% endif %}
+                </div>
+                <div class="admin-table-column">
+                    <a href="">Authors</a>
+                </div>
+                <div class="admin-table-column admin-table-column-settings ">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle admin-table-set-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">...</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Edit</a></li>
+                            <li><a class="dropdown-item" href="#">Delete</a></li>
+                        </ul>
+                      </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% elif table_value == "authors" %}
+    <div class="admin-table-line admin-table-glav-line">
+        <div class="admin-table-column admin-table-column-image">
+            img
+        </div>
+        <div class="admin-table-column admin-table-column-id">
+            Id
+        </div>
+        <div class="admin-table-column">
+            First Name
+        </div>
+        <div class="admin-table-column">
+            Last Name
+        </div>
+        <div class="admin-table-column">
+           About
+        </div>
+        <div class="admin-table-column">
+            Books
+         </div>
+        <div class="admin-table-column admin-table-column-settings ">
+            Settings
+        </div>
+    </div>
+    <hr>
+        {% for author in table %}
+            <div class="admin-table-line">
+                <div class="admin-table-column admin-table-column-image">
+                    {% if author.picture %}
+                        <img src="{{ author.picture.url }}" alt="">
+                    {% endif %}
+                </div>
+                <div class="admin-table-column admin-table-column-id">
+                    {{ author.id }}
+                </div>
+                <div class="admin-table-column">
+                    {{ author.first_name }}
+                </div>
+                <div class="admin-table-column">
+                    {{ author.last_name }}
+                </div>
+                <div class="admin-table-column">
+                   {{ author.about }}
+                </div>
+                <div class="admin-table-column">
+                    <a href="">Books</a>
+                 </div>
+                <div class="admin-table-column admin-table-column-settings ">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle admin-table-set-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">...</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Edit</a></li>
+                            <li><a class="dropdown-item" href="#">Delete</a></li>
+                        </ul>
+                      </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% elif table_value == "book_authors" %}
+    <div class="admin-table-line admin-table-glav-line">
+        <div class="admin-table-column admin-table-column-id">
+            Id
+        </div>
+        <div class="admin-table-column">
+            First Name
+        </div>
+        <div class="admin-table-column">
+            Last Name
+        </div>
+        <div class="admin-table-column">
+            Book Title
+        </div>
+        <div class="admin-table-column admin-table-column-settings ">
+            Settings
+        </div>
+    </div>
+    <hr>
+        {% for b_a in table %}
+            <div class="admin-table-line">
+                <div class="admin-table-column admin-table-column-id">
+                    {{ b_a.id }}
+                </div>
+                <div class="admin-table-column">
+                    {{ b_a.author.first_name }}
+                </div>
+                <div class="admin-table-column">
+                    {{ b_a.author.last_name }}
+                </div>
+                <div class="admin-table-column">
+                    {{ b_a.book.title }}
+                </div>
+                <div class="admin-table-column admin-table-column-settings ">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle admin-table-set-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">...</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Edit</a></li>
+                            <li><a class="dropdown-item" href="#">Delete</a></li>
+                        </ul>
+                      </div>
+                </div>
+            </div>
+        {% endfor %}
+    
     {% endif %}
 </div>    
 </div>

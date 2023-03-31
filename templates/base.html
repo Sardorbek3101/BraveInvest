@@ -15,7 +15,7 @@
     <title>{% block title %}BraveInvest{% endblock title %}</title>
     {% if request.user.black_theme %}
         <style>
-            body{
+            html, body{
                 background-color: #212529;
                 color: #fff;
             }
@@ -41,6 +41,16 @@
             .contacts-card:hover {
                 box-shadow: 0px 0px 15px 0px #97a1d0 ;
                 transition: 0.5s
+            }
+            .admin-table-column {
+                background-color: #2b3035;
+            }
+            a.admin-box {
+                background-color: #2b3035;
+                color: #fff;
+            }
+            .admin-box h6 {
+                color: #fff;
             }
         </style>
     {% endif %}
@@ -81,7 +91,7 @@
                             {% endif %}
                         </div>
                         {% if request.user.is_authenticated %}
-                            <a class="aside-profile-link" href="{% url 'profile' %}">
+                            <a class="aside-profile-link" href="{% url 'profile' request.user.id %}">
                             <div class="nav-aside-user logined">
                                 <div class="nav-aside-user-img">
                                     <img src="{{ request.user.profile_picture.url }}" alt="">

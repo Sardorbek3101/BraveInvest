@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views import View
 from .models import Book, Author, User, BookAuthor
-from invest.forms import UserCreateForm
+from invest.forms import UserCreateForm, BookCreateForm, AuthorCreateForm, BookAuthorCreateForm
 from django.core.paginator import Paginator
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
@@ -98,8 +98,8 @@ class AuthorView(View):
     
 
 class ProfileView(View):
-    def get(self, request):
-       user = request.user
+    def get(self, request, id):
+       user = User.objects.get(id=id)
        return render(request, "profile.html", {"user":user})
 
 
@@ -140,12 +140,25 @@ class AdminPageView(View):
             elif get_table == "authors":
                 table = Author.objects.all()
                 table_value = "authors"
-            elif get_table == "book_auhors":
+            elif get_table == "book_authors":
                 table = BookAuthor.objects.all()
-                table_value = "book_auhors"
+                table_value = "book_authors"
             else:
                 table = ""
                 table_value = ""
             return render(request, "admin_page.html", {"table":table, "table_value":table_value})
         else:
             return redirect("home")
+        
+
+class BookCreateView(View):
+    def get(self, request):
+        book_form = BookCreateForm()
+        return render(request, "book_create.html", {"form":book_form})
+    
+    def post(self, request):
+        book_form = BookCreateForm(data=request.POST, files=request.FILES)
+        if book_form.is_valid():
+            book_form.save()
+            return redirect("admin_page")
+        return render(request, "book_create.html", {"form":book_form})

@@ -1,7 +1,7 @@
 from django.urls import path
 from invest.views import HomeView, UserRegisterView, UserLoginView, UserLogoutView, ContactUsView, SelfImprovementDetailView,\
     InvestmentDetailView, BooksView, BookDetailView, AuthorView, ProfileView, BlackWindowView, BlackWindowDelView, AboutUsView, \
-    AdminPageView
+    AdminPageView, BookCreateView
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
@@ -14,9 +14,10 @@ urlpatterns = [
     path("books/", BooksView.as_view(), name="books"),
     path('books/<int:id>/', BookDetailView.as_view(), name="books_detail"),
     path("books/author/<int:id>/", AuthorView.as_view(), name="author"),
-    path("users/profile/", ProfileView.as_view(), name="profile"),
+    path("users/profile/<int:id>/", ProfileView.as_view(), name="profile"),
     path("users/black/window/activate/", BlackWindowView.as_view(), name="black_window"),
     path("users/black/window/deactivate/", BlackWindowDelView.as_view(), name="black_window_del"),
     path("about/us/", AboutUsView.as_view(), name="about_us"),  
     path("users/staff/page/", AdminPageView.as_view(), name="admin_page"), 
+    path("books/create/", BookCreateView.as_view(), name="book_create"),
 ]
