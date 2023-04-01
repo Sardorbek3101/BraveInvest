@@ -382,28 +382,7 @@ a.foot-sot-contact-link {
 a.nav-link-active:after {
     width: 100%;
 }
-.staff_link h5 a {
-    color: black;
-    text-decoration: none;
-}
-.ras-link{
-    display: none;
-}
-.staff_link {
-    background-color: #090e23e0;
-    width: 50%;
-    text-align: center;
-    padding: 10px 0;
-    font-size: 18px;
-    margin: auto;
-    color: #fff;
-}
-.staff_links{
-    text-align: center;
-}
-.staff_links h3{
-    margin: 15px 0;
-}
+
 .zag-oknno {
     /* background-color: aquamarine; */
     background-image:linear-gradient( rgb(0 0 0 / 40%), rgb(0 0 0 / 40%) ), url(../images/kal-amaki.jpg);
@@ -465,9 +444,9 @@ a.admin-box h3{
     overflow: auto;
     background-color: white;
 }
-.admin-table-glav-line {
+/* .admin-table-glav-line {
     position: sticky;
-}
+} */
 .admin-table-glav-line .admin-table-column {
     box-shadow: 0 0 5px 0 #555;
     background: none;
@@ -511,6 +490,24 @@ a.admin-table-set-link{
 .create-containner {
     margin: 50px auto;
     width: 60%;
+}
+.admin-conf-del {
+    position: fixed;
+    top: 40%;
+    width: 30%;
+    left: 35%;
+    background-color: yellowgreen;
+    text-align: center;
+    font-size: 20px;
+    padding: 10px 15px;
+    border-radius: 15px;
+}
+.admin-del-buttons{
+    display: flex;
+    justify-content: center;
+}
+.admin-del-buttons button{
+    margin: auto 10px;
 }
 /* .login_containner{
     background-color: #020512d9;

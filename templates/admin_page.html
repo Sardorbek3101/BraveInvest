@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
+{% if del_book %}
+{% endif %}
+{% if del_book %}
+<div class="admin-conf-del">
+    Are you sure you want to delete the book "{{ del_book.title }}" ?<br><br>
+    <div class="admin-del-buttons"><a class="btn btn-outline-success" href="?table=books">Cancel</a>  
+        <form action="{% url 'book_delete' del_book.id %}" method="post">{% csrf_token %}
+            <button class="btn btn-outline-danger">Delete</button>
+        </form>
+    </div>
+</div>
+{% endif %}
 <div class="admin-containner">
 
 <div class="admin-boxes">
@@ -32,14 +44,14 @@
 {% endif %}
 {% if table_value == "authors" %}
 <div class="admin-table admin-table-create">
-    <a class="admin-table-line" href="">
+    <a class="admin-table-line" href="{% url 'author_create' %}">
         <i class="bi bi-database-add"></i> &nbsp Add Author
     </a>
 </div>
 {% endif %}
 {% if table_value == "book_authors" %}
 <div class="admin-table admin-table-create">
-    <a class="admin-table-line" href="">
+    <a class="admin-table-line" href="{% url 'b_a_create' %}">
         <i class="bi bi-database-add"></i> &nbsp Add Book Author
     </a>
 </div>
@@ -169,8 +181,8 @@
                     <div class="dropdown">
                         <a class="dropdown-toggle admin-table-set-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">...</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Edit</a></li>
-                            <li><a class="dropdown-item" href="#">Delete</a></li>
+                            <li><a class="dropdown-item" href="{% url 'book_update' book.id %}">Edit</a></li>
+                            <li><a class="dropdown-item" href="?table=books&delete-book={{ book.id }}">Delete</a></li>
                         </ul>
                       </div>
                 </div>
@@ -283,59 +295,3 @@
 </div>    
 </div>
 {% endblock content %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{% comment %} <div class="staff_links">
-<h3>Управление сайтом</h3>
-<div class="staff_link">
-    <details>
-        <summary>Users</summary>
-        <a href="#">All users</a>
-    </details>      
-</div>
-<hr>
-<div class="staff_link">
-    <details>
-        <summary>Books</summary>
-        <a href="#">Create book</a>
-    </details>      
-</div>
-<hr>
-<div class="staff_link">
-    <details>
-        <summary>Authors</summary>
-        <a href="#">Create author</a>
-    </details>      
-</div>
-<hr>
-<div class="staff_link">
-    <details>
-        <summary>Book author</summary>
-        <a href="#">create book author</a>
-    </details>
-</div>
-</div> {% endcomment %}

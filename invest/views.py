@@ -131,6 +131,13 @@ class AdminPageView(View):
     def get(self, request):
         if request.user.is_staff:
             get_table = request.GET.get("table", "users")
+            del_book = None
+            book_del_id = request.GET.get("delete-book", "")
+            if book_del_id:
+                try:
+                    del_book = Book.objects.get(id=book_del_id)
+                except:
+                    messages.warning(request, "No books found matching your search")
             if get_table == "users":
                 table = User.objects.all()
                 table_value = "users"
@@ -146,19 +153,85 @@ class AdminPageView(View):
             else:
                 table = ""
                 table_value = ""
-            return render(request, "admin_page.html", {"table":table, "table_value":table_value})
+            return render(request, "admin_page.html", {"table":table, "table_value":table_value, "del_book":del_book})
         else:
             return redirect("home")
         
 
 class BookCreateView(View):
     def get(self, request):
-        book_form = BookCreateForm()
-        return render(request, "book_create.html", {"form":book_form})
+        if request.user.is_staff:
+            book_form = BookCreateForm()
+            return render(request, "book_create.html", {"form":book_form})
+        return redirect("home")
     
     def post(self, request):
-        book_form = BookCreateForm(data=request.POST, files=request.FILES)
-        if book_form.is_valid():
-            book_form.save()
-            return redirect("admin_page")
-        return render(request, "book_create.html", {"form":book_form})
+        if request.user.is_staff:
+            book_form = BookCreateForm(data=request.POST, files=request.FILES)
+            if book_form.is_valid():
+                book_form.save()
+                return redirect("admin_page")
+            return render(request, "book_create.html", {"form":book_form})
+        return redirect("home")
+    
+
+class BookUpdateView(View):
+    def get(self, request, id):
+        if request.user.is_staff:
+            book = Book.objects.get(id=id)
+            book_form = BookCreateForm(instance=book)
+            return render(request, "book_update.html", {"form":book_form})
+        return redirect("home")
+    
+    def post(self, request, id):
+        if request.user.is_staff:
+            book = Book.objects.get(id=id)
+            book_form = BookCreateForm(instance=book, data=request.POST, files=request.FILES)
+            if book_form.is_valid():
+                book_form.save()
+                return redirect("admin_page")
+            else:
+                return render(request, "book_update.html", {"form":book_form})
+        return redirect("home")
+    
+
+class BookDeleteView(View):
+    def post(self, request, id):
+        book = Book.objects.get(id=id)
+        book.delete()
+        return redirect("admin_page")
+
+
+
+class AuthorCreateView(View):
+    def get(self, request):
+        if request.user.is_staff:
+            author_form = AuthorCreateForm()
+            return render(request, "author_create.html", {"form":author_form})
+        return redirect("home")
+    
+    def post(self, request):
+        if request.user.is_staff:
+            author_form = AuthorCreateForm(data=request.POST, files=request.FILES)
+            if author_form.is_valid():
+                author_form.save()
+                return redirect("admin_page")
+            return render(request, "author_create.html", {"form":author_form})
+        return redirect("home")
+    
+
+class BookAuthorCreateView(View):
+    def get(self, request):
+        if request.user.is_staff:
+            b_a_form = BookAuthorCreateForm()
+            return render(request, "b_a_create.html", {"form":b_a_form})
+        return redirect("home")
+    
+    def post(self, request):
+        if request.user.is_staff:
+            b_a_form = BookAuthorCreateForm(data=request.POST)
+            if b_a_form.is_valid():
+                b_a_form.save()
+                return redirect("admin_page")
+            return render(request, "b_a_create.html", {"form":b_a_form})
+        return redirect("home")
