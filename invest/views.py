@@ -132,12 +132,29 @@ class AdminPageView(View):
         if request.user.is_staff:
             get_table = request.GET.get("table", "users")
             del_book = None
+            del_author = None
+            del_b_a = None
             book_del_id = request.GET.get("delete-book", "")
+            author_del_id = request.GET.get("delete-author", "")
+            b_a_del_id = request.GET.get("delete-book-author", "")
             if book_del_id:
                 try:
                     del_book = Book.objects.get(id=book_del_id)
                 except:
                     messages.warning(request, "No books found matching your search")
+            
+            if author_del_id:
+                try:
+                    del_author = Author.objects.get(id=author_del_id)
+                except:
+                    messages.warning(request, "No authors found matching your search")
+
+            if b_a_del_id:
+                try:
+                    del_b_a = BookAuthor.objects.get(id=b_a_del_id)
+                except:
+                    messages.warning(request, "No book authors found matching your search")
+
             if get_table == "users":
                 table = User.objects.all()
                 table_value = "users"
@@ -153,7 +170,7 @@ class AdminPageView(View):
             else:
                 table = ""
                 table_value = ""
-            return render(request, "admin_page.html", {"table":table, "table_value":table_value, "del_book":del_book})
+            return render(request, "admin_page.html", {"table":table, "table_value":table_value, "del_book":del_book, "del_author":del_author, "del_b_a":del_b_a})
         else:
             return redirect("home")
         
@@ -197,10 +214,11 @@ class BookUpdateView(View):
 
 class BookDeleteView(View):
     def post(self, request, id):
-        book = Book.objects.get(id=id)
-        book.delete()
-        return redirect("admin_page")
-
+        if request.user.is_staff:
+            book = Book.objects.get(id=id)
+            book.delete()
+            return redirect("admin_page")
+        return redirect("home")
 
 
 class AuthorCreateView(View):
@@ -220,6 +238,35 @@ class AuthorCreateView(View):
         return redirect("home")
     
 
+class AuthorUpdateView(View):
+    def get(self, request, id):
+        if request.user.is_staff:
+            author = Author.objects.get(id=id)
+            author_form = AuthorCreateForm(instance=author)
+            return render(request, "author_update.html", {"form":author_form})
+        return redirect("home")
+    
+    def post(self, request, id):
+        if request.user.is_staff:
+            author = Author.objects.get(id=id)
+            author_form = AuthorCreateForm(instance=author, data=request.POST, files=request.FILES)
+            if author_form.is_valid():
+                author_form.save()
+                return redirect("admin_page")
+            else:
+                return render(request, "author_update.html", {"form":author_form})
+        return redirect("home")
+
+
+class AuthorDeleteView(View):
+    def post(self, request, id):
+        if request.user.is_staff:
+            author = Author.objects.get(id=id)
+            author.delete()
+            return redirect("admin_page")
+        return redirect("home")
+
+
 class BookAuthorCreateView(View):
     def get(self, request):
         if request.user.is_staff:
@@ -234,4 +281,33 @@ class BookAuthorCreateView(View):
                 b_a_form.save()
                 return redirect("admin_page")
             return render(request, "b_a_create.html", {"form":b_a_form})
+        return redirect("home")
+
+
+class BookAuthorUpdateView(View):
+    def get(self, request, id):
+        if request.user.is_staff:
+            b_a = BookAuthor.objects.get(id=id)
+            b_a_form = BookAuthorCreateForm(instance=b_a)
+            return render(request, "b_a_update.html", {"form":b_a_form})
+        return redirect("home")
+    
+    def post(self, request, id):
+        if request.user.is_staff:
+            b_a = BookAuthor.objects.get(id=id)
+            b_a_form = BookAuthorCreateForm(instance=b_a, data=request.POST, files=request.FILES)
+            if b_a_form.is_valid():
+                b_a_form.save()
+                return redirect("admin_page")
+            else:
+                return render(request, "b_a_update.html", {"form":b_a_form})
+        return redirect("home")
+    
+
+class BookAuthorDeleteView(View):
+    def post(self, request, id):
+        if request.user.is_staff:
+            b_a = BookAuthor.objects.get(id=id)
+            b_a.delete()
+            return redirect("admin_page")
         return redirect("home")

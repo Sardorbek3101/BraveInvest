@@ -12,6 +12,26 @@
     </div>
 </div>
 {% endif %}
+{% if del_author %}
+<div class="admin-conf-del">
+    Are you sure you want to delete the author "{{ del_author.first_name }} {{ del_author.last_name }}" ?<br><br>
+    <div class="admin-del-buttons"><a class="btn btn-outline-success" href="?table=books">Cancel</a>  
+        <form action="{% url 'author_delete' del_author.id %}" method="post">{% csrf_token %}
+            <button class="btn btn-outline-danger">Delete</button>
+        </form>
+    </div>
+</div>
+{% endif %}
+{% if del_b_a %}
+<div class="admin-conf-del">
+    Are you sure you want to remove the author of the book "{{ del_b_a.book.title }}" - "{{ del_b_a.author.first_name }} {{ del_b_a.author.last_name }}" ?<br><br>
+    <div class="admin-del-buttons"><a class="btn btn-outline-success" href="?table=books">Cancel</a>  
+        <form action="{% url 'b_a_delete' del_b_a.id %}" method="post">{% csrf_token %}
+            <button class="btn btn-outline-danger">Delete</button>
+        </form>
+    </div>
+</div>
+{% endif %}
 <div class="admin-containner">
 
 <div class="admin-boxes">
@@ -239,8 +259,8 @@
                     <div class="dropdown">
                         <a class="dropdown-toggle admin-table-set-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">...</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Edit</a></li>
-                            <li><a class="dropdown-item" href="#">Delete</a></li>
+                            <li><a class="dropdown-item" href="{% url 'author_update' author.id %}">Edit</a></li>
+                            <li><a class="dropdown-item" href="?table=authors&delete-author={{ author.id }}">Delete</a></li>
                         </ul>
                       </div>
                 </div>
@@ -283,8 +303,8 @@
                     <div class="dropdown">
                         <a class="dropdown-toggle admin-table-set-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">...</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Edit</a></li>
-                            <li><a class="dropdown-item" href="#">Delete</a></li>
+                            <li><a class="dropdown-item" href="{% url 'b_a_update' b_a.id %}">Edit</a></li>
+                            <li><a class="dropdown-item" href="?table=book-authors&delete-book-author={{ b_a.id }}">Delete</a></li>
                         </ul>
                       </div>
                 </div>
