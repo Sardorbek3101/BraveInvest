@@ -1,32 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
-{% if del_book %}
-{% endif %}
-{% if del_book %}
+
+{% if del_obj_value == "books" %}
 <div class="admin-conf-del">
-    Are you sure you want to delete the book "{{ del_book.title }}" ?<br><br>
+    Are you sure you want to delete the book "{{ del_obj.title }}" ?<br><br>
     <div class="admin-del-buttons"><a class="btn btn-outline-success" href="?table=books">Cancel</a>  
-        <form action="{% url 'book_delete' del_book.id %}" method="post">{% csrf_token %}
+        <form action="{% url 'book_delete' del_obj.id %}" method="post">{% csrf_token %}
             <button class="btn btn-outline-danger">Delete</button>
         </form>
     </div>
 </div>
 {% endif %}
-{% if del_author %}
+{% if del_obj_value == "authors" %}
 <div class="admin-conf-del">
-    Are you sure you want to delete the author "{{ del_author.first_name }} {{ del_author.last_name }}" ?<br><br>
+    Are you sure you want to delete the author "{{ del_obj.first_name }} {{ del_obj.last_name }}" ?<br><br>
     <div class="admin-del-buttons"><a class="btn btn-outline-success" href="?table=books">Cancel</a>  
-        <form action="{% url 'author_delete' del_author.id %}" method="post">{% csrf_token %}
+        <form action="{% url 'author_delete' del_obj.id %}" method="post">{% csrf_token %}
             <button class="btn btn-outline-danger">Delete</button>
         </form>
     </div>
 </div>
 {% endif %}
-{% if del_b_a %}
+{% if del_obj_value == "book_authors" %}
 <div class="admin-conf-del">
-    Are you sure you want to remove the author of the book "{{ del_b_a.book.title }}" - "{{ del_b_a.author.first_name }} {{ del_b_a.author.last_name }}" ?<br><br>
+    Are you sure you want to remove the author of the book "{{ del_obj.book.title }}" - "{{ del_obj.author.first_name }} {{ del_obj.author.last_name }}" ?<br><br>
     <div class="admin-del-buttons"><a class="btn btn-outline-success" href="?table=books">Cancel</a>  
-        <form action="{% url 'b_a_delete' del_b_a.id %}" method="post">{% csrf_token %}
+        <form action="{% url 'b_a_delete' del_obj.id %}" method="post">{% csrf_token %}
+            <button class="btn btn-outline-danger">Delete</button>
+        </form>
+    </div>
+</div>
+{% endif %}
+
+{% if del_obj_value == "users" %}
+<div class="admin-conf-del">
+    Are you sure you want to delete the user "{{ del_obj.username }}" ?<br><br>
+    <div class="admin-del-buttons"><a class="btn btn-outline-success" href="?table=books">Cancel</a>  
+        <form action="{% url 'admin_users_delete' del_obj.id %}" method="post">{% csrf_token %}
             <button class="btn btn-outline-danger">Delete</button>
         </form>
     </div>
@@ -140,7 +150,7 @@
                     <div class="dropdown">
                         <a class="dropdown-toggle admin-table-set-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">...</a>
                         <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="#">Delete</a></li>
+                          <li><a class="dropdown-item" href="?delete-user={{ user.id }}">Delete</a></li>
                         </ul>
                       </div>
                 </div>
@@ -182,7 +192,7 @@
                     {{ book.id }}
                 </div>
                 <div class="admin-table-column">
-                    {{ book.title }}
+                    <a href="{% url 'books_detail' book.id%}">{{ book.title }}</a>
                 </div>
                 <div class="admin-table-column">
                     {{ book.description }}
@@ -195,7 +205,7 @@
                     {% endif %}
                 </div>
                 <div class="admin-table-column">
-                    <a href="">Authors</a>
+                    <a href="?table=book_authors">Authors</a>
                 </div>
                 <div class="admin-table-column admin-table-column-settings ">
                     <div class="dropdown">
@@ -244,7 +254,7 @@
                     {{ author.id }}
                 </div>
                 <div class="admin-table-column">
-                    {{ author.first_name }}
+                    <a href="{% url 'author' author.id %}">{{ author.first_name }}</a>
                 </div>
                 <div class="admin-table-column">
                     {{ author.last_name }}
@@ -253,7 +263,7 @@
                    {{ author.about }}
                 </div>
                 <div class="admin-table-column">
-                    <a href="">Books</a>
+                    <a href="?table=book_authors">Books</a>
                  </div>
                 <div class="admin-table-column admin-table-column-settings ">
                     <div class="dropdown">
@@ -291,13 +301,13 @@
                     {{ b_a.id }}
                 </div>
                 <div class="admin-table-column">
-                    {{ b_a.author.first_name }}
+                    <a href="{% url 'author' b_a.author.id %}">{{ b_a.author.first_name }}</a>
                 </div>
                 <div class="admin-table-column">
                     {{ b_a.author.last_name }}
                 </div>
                 <div class="admin-table-column">
-                    {{ b_a.book.title }}
+                    <a href="{% url 'books_detail' b_a.book.id %}">{{ b_a.book.title }}</a>
                 </div>
                 <div class="admin-table-column admin-table-column-settings ">
                     <div class="dropdown">

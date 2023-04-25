@@ -2,7 +2,8 @@ from django.urls import path
 from invest.views import HomeView, UserRegisterView, UserLoginView, UserLogoutView, ContactUsView, SelfImprovementDetailView,\
     InvestmentDetailView, BooksView, BookDetailView, AuthorView, ProfileView, BlackWindowView, BlackWindowDelView, AboutUsView, \
     AdminPageView, BookCreateView, AuthorCreateView, BookAuthorCreateView, BookUpdateView, BookDeleteView, AuthorUpdateView, \
-    AuthorDeleteView, BookAuthorUpdateView, BookAuthorDeleteView
+    AuthorDeleteView, BookAuthorUpdateView, BookAuthorDeleteView, UserDeleteView, ProfileUpdateView, HabitsView, FinancialsView, \
+    MentorshipView, TradingInvestingView, MentorshipCreateView
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
@@ -29,4 +30,11 @@ urlpatterns = [
     path("books/author/delete/<int:id>/", AuthorDeleteView.as_view(), name="author_delete"),
     path("books/book-author/update/<int:id>/", BookAuthorUpdateView.as_view(), name="b_a_update"),
     path("books/book-author/delete/<int:id>/", BookAuthorDeleteView.as_view(), name="b_a_delete"),
+    path("users/delete/<int:id>/", UserDeleteView.as_view(), name="admin_users_delete"),
+    path("users/profile/update/<int:id>/", ProfileUpdateView.as_view(), name="profile_update"),
+    path("habits/", HabitsView.as_view(), name="habits"),
+    path("financial/", FinancialsView.as_view(), name="financial"),
+    path("mentorship/", MentorshipView.as_view(), name="mentorship"),
+    path("trading-investing/", TradingInvestingView.as_view(), name="trading_investing"),
+    path("mentorship/create/", MentorshipCreateView.as_view(), name="mentorship_create"),
 ]

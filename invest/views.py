@@ -1,7 +1,8 @@
 from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.views import View
-from .models import Book, Author, User, BookAuthor
-from invest.forms import UserCreateForm, BookCreateForm, AuthorCreateForm, BookAuthorCreateForm
+from .models import Book, Author, User, BookAuthor, Mentorship, InvestingCourses
+from invest.forms import UserCreateForm, BookCreateForm, AuthorCreateForm, BookAuthorCreateForm, UserUpdateForm, MentorshipCreateForm, InvestingCoursesCreateForm
 from django.core.paginator import Paginator
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
@@ -101,6 +102,22 @@ class ProfileView(View):
     def get(self, request, id):
        user = User.objects.get(id=id)
        return render(request, "profile.html", {"user":user})
+    
+
+class ProfileUpdateView(View):
+    def get(self, request, id):
+        user = User.objects.get(id=id)
+        form = UserUpdateForm(instance=user)
+        return render(request, "profile_update.html", {"form":form})
+    
+    def post(self, request, id):
+        user = User.objects.get(id=id)
+        form = UserUpdateForm(instance=user, data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse("profile", kwargs={"id":user.id}))
+        else:
+            return render(request, "profile_update.html", {"form":form})
 
 
 class BlackWindowView(View):
@@ -118,8 +135,6 @@ class BlackWindowDelView(View):
     def post(self, request):
         if request.user.is_authenticated:
             path = request.POST['path']
-            print(path)
-            print('salom')
             request.user.black_theme = False
             request.user.save()
             return redirect(path)
@@ -131,27 +146,38 @@ class AdminPageView(View):
     def get(self, request):
         if request.user.is_staff:
             get_table = request.GET.get("table", "users")
-            del_book = None
-            del_author = None
-            del_b_a = None
+            del_obj_value = None
+            del_obj = None
             book_del_id = request.GET.get("delete-book", "")
             author_del_id = request.GET.get("delete-author", "")
             b_a_del_id = request.GET.get("delete-book-author", "")
+            user_del_id = request.GET.get("delete-user", "")
+
             if book_del_id:
+                del_obj_value = "books"
                 try:
-                    del_book = Book.objects.get(id=book_del_id)
+                    del_obj = Book.objects.get(id=book_del_id)
                 except:
                     messages.warning(request, "No books found matching your search")
             
-            if author_del_id:
+            elif author_del_id:
+                del_obj_value = "authors"
                 try:
-                    del_author = Author.objects.get(id=author_del_id)
+                    del_obj = Author.objects.get(id=author_del_id)
                 except:
                     messages.warning(request, "No authors found matching your search")
 
-            if b_a_del_id:
+            elif b_a_del_id:
+                del_obj_value = "book_authors"
                 try:
-                    del_b_a = BookAuthor.objects.get(id=b_a_del_id)
+                    del_obj = BookAuthor.objects.get(id=b_a_del_id)
+                except:
+                    messages.warning(request, "No book authors found matching your search")
+
+            elif user_del_id:
+                del_obj_value = "users"
+                try:
+                    del_obj = User.objects.get(id=user_del_id)
                 except:
                     messages.warning(request, "No book authors found matching your search")
 
@@ -170,7 +196,7 @@ class AdminPageView(View):
             else:
                 table = ""
                 table_value = ""
-            return render(request, "admin_page.html", {"table":table, "table_value":table_value, "del_book":del_book, "del_author":del_author, "del_b_a":del_b_a})
+            return render(request, "admin_page.html", {"table":table, "table_value":table_value, "del_obj_value":del_obj_value, "del_obj": del_obj})
         else:
             return redirect("home")
         
@@ -180,11 +206,11 @@ class BookCreateView(View):
         if request.user.is_staff:
             book_form = BookCreateForm()
             return render(request, "book_create.html", {"form":book_form})
-        return redirect("home")
+        return redirect("admin_page")
     
     def post(self, request):
         if request.user.is_staff:
-            book_form = BookCreateForm(data=request.POST, files=request.FILES)
+            book_form = BookCreateForm(data=request.POST, files=request.FILES)  
             if book_form.is_valid():
                 book_form.save()
                 return redirect("admin_page")
@@ -311,3 +337,68 @@ class BookAuthorDeleteView(View):
             b_a.delete()
             return redirect("admin_page")
         return redirect("home")
+    
+
+class UserDeleteView(View):
+    def post(self, request, id):
+        if request.user.is_staff:
+            user = User.objects.get(id=id)
+            if user.is_superuser:
+                messages.warning(request, "It is forbidden to remove the superuser")
+                return redirect("admin_page")
+            elif user.is_staff:
+                if request.user.is_superuser:
+                    user.delete()
+                    return redirect("admin_page")
+                else:
+                    messages.warning(request, "You are not allowed to remove site administrators")
+                    return redirect("admin_page")
+            user.delete()
+            return redirect("admin_page")
+        else:
+            return redirect("home")
+
+
+class HabitsView(View):
+    def get(self, request):
+        return render(request, "habits.html")
+    
+
+class FinancialsView(View):
+    def get(self, request):
+        return render(request, "financial.html")
+    
+
+class MentorshipView(View):
+    def get(self, request):
+        mentorship = Mentorship.objects.all()
+        return render(request, "mentorship.html", {"ment":mentorship})
+
+
+class TradingInvestingView(View):
+    def get(self, request):
+        return render(request, "trading_investing.html")
+    
+
+class MentorshipCreateView(View):
+    def get(self, request):
+        if request.user.is_staff:
+            form = MentorshipCreateForm()
+            return render(request, "mentorship_create.html", {"form":form})
+        else:
+            return redirect("mentorship")
+    
+    def post(self, request):
+        if request.user.is_staff:
+            form = MentorshipCreateForm(data=request.POST)
+            if form.is_valid():
+                if form.cleaned_data['title'] == None and form.cleaned_data['video_url'] == "":
+                    messages.warning(request, "Please fill in at least one field")
+                    return redirect("mentorship_create")
+                else:
+                    form.save()
+                    return redirect("mentorship")
+            else:
+                return render(request, "mentorship_create.html", {"form":form})
+        else:
+            return redirect("mentorship")

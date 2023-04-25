@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
 
 
 class User(AbstractUser):
@@ -33,4 +34,18 @@ class BookAuthor(models.Model):
 
     def __str__(self):
         return f"{self.book.title} {self.author.first_name} {self.author.last_name}"
+    
 
+class Mentorship(models.Model):
+    title = models.CharField(max_length=250, blank=True, null=True)
+    video_url = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(default=timezone.now)
+
+def strip_double_quotes(quoted_string):
+    return quoted_string.replace('"', '')
+
+
+class InvestingCourses(models.Model):
+    title = models.CharField(max_length=250, blank=True, null=True)
+    video_url = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(default=timezone.now)

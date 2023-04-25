@@ -120,15 +120,16 @@
       </div>
   </div>
 </div>
+<h1 class="titles">Invest your time in yourself</h1>
 
-  {% comment %} <div class="contacts-cards">
-    <div class="contacts-card">
-      <h3>Invest your time in yourself</h3>
-      <img src="{% static 'images/photo_4_2023-02-16_10-19-37.jpg' %}" alt="">
-    </div>
-    <div class="contacts-card">
+  <div class="contacts-cards">
+    <a class="contacts-card" href="{% url 'habits' %}">
+      <h3>Habits will build you or break you</h3>
+      <img src="{% static 'images/kulgan-amak.jpg' %}" alt="">
+    </a>
+    <a class="contacts-card" href="{% url 'financial' %}">
       <h3>Financial vehicle</h3>
       <img src="{% static 'images/photo_3_2023-02-16_10-19-37.jpg' %}" alt="">
-    </div>
-</div> {% endcomment %}
+    </a>
+</div>
 {% endblock content %}
