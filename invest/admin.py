@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Book, User, Author, BookAuthor, Mentorship, InvestingCourses
+from .models import Book, User, Author, BookAuthor, Mentorship, InvestingCourses, Notes
 
 
 admin.site.register(User)
@@ -8,3 +8,4 @@ admin.site.register(Author)
 admin.site.register(BookAuthor)
 admin.site.register(Mentorship)
 admin.site.register(InvestingCourses)
+admin.site.register(Notes)

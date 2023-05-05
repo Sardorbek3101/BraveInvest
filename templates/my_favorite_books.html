@@ -1,26 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
+<div class="my-books">
+    <h3>My Favorite Books <i class="bi bi-heart-fill"></i></h3>
+</div>
 <div class="boks-search">
     <form method="get" class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
         {% comment %} <button class="btn btn-outline-success" type="submit">Search</button> {% endcomment %}
     </form>
 </div>
-<div class="my_favorite_books">
-  <a href="{% url 'my_books' %}">My Favorite Books <i style="color:red" class="bi bi-heart-fill"></i></a>
-</div>
 <div class="books">
     {% for book in books %}
-    <div class="book-detail">
-    <div class="book-cover_picture">
-        <img src="{{ book.cover_picture.url }}" alt="">
-    </div>
-    <div class="book-description">
-        <a href="{% url 'books_detail' book.id %}"><h5>{{ book.title }}</h5></a>
-        <p>{{ book.description | truncatechars:500 }}<br><a href="{% url 'books_detail' book.id %}">read more ...</a></p>
-    </div>
-    </div>
+        {% if book.my_favorite %}
+            <div class="book-detail">
+            <div class="book-cover_picture">
+                <img src="{{ book.cover_picture.url }}" alt="">
+            </div>
+            <div class="book-description">
+                <a href="{% url 'books_detail' book.id %}"><h5>{{ book.title }}</h5></a>
+                <p>{{ book.description | truncatechars:500 }}<br><a href="{% url 'books_detail' book.id %}">read more ...</a></p>
+            </div>
+            </div>
+        {% endif %}
     {% endfor %}
 </div>
 <div class="books-pagination">

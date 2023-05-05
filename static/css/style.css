@@ -576,6 +576,23 @@ p.habbit_text {
     font-size: 18px;
     font-weight: 600;
 }
+.my_favorite_books{
+    float: right;
+    margin-right: 150px;
+    margin-top: -27px;
+}
+.my_favorite_books a{
+    text-decoration: none;
+    color: rgb(62, 62, 251);
+}
+.my_favorite_books a:hover{
+    text-decoration:underline;
+}
+.my-books {
+    margin: 30px auto;
+    text-align: center;
+    font-family: 'bootstrap-icons';
+}
 /* .login_containner{
     background-color: #020512d9;
     width: 100%;

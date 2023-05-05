@@ -1,8 +1,8 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views import View
-from .models import Book, Author, User, BookAuthor, Mentorship, InvestingCourses
-from invest.forms import UserCreateForm, BookCreateForm, AuthorCreateForm, BookAuthorCreateForm, UserUpdateForm, MentorshipCreateForm, InvestingCoursesCreateForm
+from .models import Book, Author, User, BookAuthor, Mentorship, InvestingCourses, Notes
+from invest.forms import UserCreateForm, BookCreateForm, AuthorCreateForm, BookAuthorCreateForm, UserUpdateForm, MentorshipCreateForm, InvestingCoursesCreateForm, NotesCreateForm
 from django.core.paginator import Paginator
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
@@ -377,7 +377,8 @@ class MentorshipView(View):
 
 class TradingInvestingView(View):
     def get(self, request):
-        return render(request, "trading_investing.html")
+        courses = InvestingCourses.objects.all()
+        return render(request, "trading_investing.html", {"courses":courses})
     
 
 class MentorshipCreateView(View):
@@ -387,7 +388,7 @@ class MentorshipCreateView(View):
             return render(request, "mentorship_create.html", {"form":form})
         else:
             return redirect("mentorship")
-    
+
     def post(self, request):
         if request.user.is_staff:
             form = MentorshipCreateForm(data=request.POST)
@@ -402,3 +403,100 @@ class MentorshipCreateView(View):
                 return render(request, "mentorship_create.html", {"form":form})
         else:
             return redirect("mentorship")
+
+class InvestCoursesCreateView(View):
+    def get(self, request):
+        if request.user.is_staff:
+            form = InvestingCoursesCreateForm()
+            return render(request, "investing_courses_create.html", {"form":form})
+        else:
+            return redirect("trading_investing")
+    
+    def post(self, request):
+        if request.user.is_staff:
+            form = InvestingCoursesCreateForm(data=request.POST)
+            if form.is_valid():
+                if form.cleaned_data['title'] == None and form.cleaned_data['video_url'] == "":
+                    messages.warning(request, "Please fill in at least one field")
+                    return redirect("invest_courses_create")
+                else:
+                    form.save()
+                    return redirect("trading_investing")
+            else:
+                return render(request, "investing_courses_create.html", {"form":form})
+        else:
+            return redirect("trading_investing")
+
+
+class LikeBookView(View):
+    def get(self, request, id):
+        if request.user.is_staff:
+            try:
+                book = Book.objects.get(id=id)
+            except:
+                messages.warning(request, "No books found matching your search")
+                return redirect("books")
+            if book.my_favorite == False:
+                book.my_favorite = True
+                book.save()
+            else:
+                messages.warning(request, "You already liked this book")
+            return redirect(reverse("books_detail", kwargs={"id":id}))
+        else:
+            return redirect(reverse("books_detail", kwargs={"id":id}))
+        
+
+class DeleteBookLikeView(View):
+    def get(self, request, id):
+        if request.user.is_staff:
+            try:
+                book = Book.objects.get(id=id)
+            except:
+                messages.warning(request, "No books found matching your search")
+                return redirect("books")
+            if book.my_favorite:
+                book.my_favorite = False
+                book.save()
+            else:
+                messages.warning(request, "You haven't liked this book yet")
+            return redirect(reverse("books_detail", kwargs={"id":id}))
+        else:
+            return redirect(reverse("books_detail", kwargs={"id":id}))
+        
+
+class MyFavoriteBooksView(View):
+    def get(self, request):
+        books = Book.objects.all()
+        search = request.GET.get("q", "")
+        if search:
+            books = books.filter(title__icontains=search)
+        pagenator = Paginator(books, 4)
+        page_num = request.GET.get("page", 1)
+        books_page = pagenator.get_page(page_num)
+        return render(request, "my_favorite_books.html", {"books":books_page, "search":search})
+    
+
+class NoteCreateView(View):
+    def get(self, request):
+        if request.user.is_staff:
+            form = NotesCreateForm()
+            return render(request, "note_create.html", {"form":form})
+        else:
+            return redirect(reverse("profile", kwargs={"id":request.user.id}))
+    
+    def post(self, request):
+        if request.user.is_staff:
+            form = NotesCreateForm(data=request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect(reverse("profile", kwargs={"id":request.user.id}))
+            else:
+                return render(request, "note_create.html", {"form":form})
+        else:
+            return redirect(reverse("profile", kwargs={"id":request.user.id}))
+        
+
+class NotesView(View):
+    def get(self, request):
+        notes = Notes.objects.all()
+        return render(request, "notes.html", {"notes":notes})

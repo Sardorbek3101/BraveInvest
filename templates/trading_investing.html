@@ -1,9 +1,25 @@
 {% extends 'base.html' %}
-
+{% comment %} {% load dinotags %} {% endcomment %}
 {% block content %}
-
-<div class="you-vid">
-    <h2>Page hasn't been finished yet</h2>
+<div class="habits-content">
+    {% if request.user.is_staff %}
+    <div class="admin-table admin-table-create">
+        <a class="admin-table-line" href="{% url 'invest_courses_create' %}">
+            <i class="bi bi-database-add"></i> &nbsp Add Investing Course
+        </a>
+    </div>
+    {% endif %}
+    {% if courses %}
+    {% for m in courses %}
+        <div class="you-vid">
+            <h1 class="titles">{{ m.title }}</h1>
+            <div class="habbits-video">
+                {% autoescape off %}{{ m.video_url }}{% endautoescape %}
+            </div>
+        </div>
+    {% endfor %}
+    {% else %}
+        <div class="you-vid"><h2>Page hasn't been finished yet</h2></div>
+    {% endif %}
 </div>
-
 {% endblock content %}

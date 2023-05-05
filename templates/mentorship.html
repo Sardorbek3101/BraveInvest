@@ -2,18 +2,24 @@
 {% comment %} {% load dinotags %} {% endcomment %}
 {% block content %}
 <div class="habits-content">
-    <div class="admin-table admin-table-create">
-        <a class="admin-table-line" href="{% url 'mentorship_create' %}">
-            <i class="bi bi-database-add"></i> &nbsp Add Mentorship
-        </a>
-    </div>
-    {% for m in ment %}
-        <div class="you-vid">
-            <h1 class="titles">{{ m.title }}</h1>
-            <div class="habbits-video">
-                {% autoescape off %}{{ m.video_url }}{% endautoescape %}
-            </div>
+    {% if request.user.is_staff %}
+        <div class="admin-table admin-table-create">
+            <a class="admin-table-line" href="{% url 'mentorship_create' %}">
+                <i class="bi bi-database-add"></i> &nbsp Add Mentorship
+            </a>
         </div>
-    {% endfor %}
+    {% endif %}
+    {% if ment %}
+        {% for m in ment %}
+            <div class="you-vid">
+                <h1 class="titles">{{ m.title }}</h1>
+                <div class="habbits-video">
+                    {% autoescape off %}{{ m.video_url }}{% endautoescape %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="you-vid"><h2>Page hasn't been finished yet</h2></div>
+    {% endif %}
 </div>
 {% endblock content %}

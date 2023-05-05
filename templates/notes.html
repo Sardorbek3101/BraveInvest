@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if notes %}
+    {% for note in notes %}
+        {% if note.user == request.user %}
+            {{ note.title }}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% endblock content %}

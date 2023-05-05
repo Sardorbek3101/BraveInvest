@@ -3,7 +3,8 @@ from invest.views import HomeView, UserRegisterView, UserLoginView, UserLogoutVi
     InvestmentDetailView, BooksView, BookDetailView, AuthorView, ProfileView, BlackWindowView, BlackWindowDelView, AboutUsView, \
     AdminPageView, BookCreateView, AuthorCreateView, BookAuthorCreateView, BookUpdateView, BookDeleteView, AuthorUpdateView, \
     AuthorDeleteView, BookAuthorUpdateView, BookAuthorDeleteView, UserDeleteView, ProfileUpdateView, HabitsView, FinancialsView, \
-    MentorshipView, TradingInvestingView, MentorshipCreateView
+    MentorshipView, TradingInvestingView, MentorshipCreateView, InvestCoursesCreateView, LikeBookView, DeleteBookLikeView, \
+    MyFavoriteBooksView, NoteCreateView, NotesView
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
@@ -17,6 +18,8 @@ urlpatterns = [
     path('books/<int:id>/', BookDetailView.as_view(), name="books_detail"),
     path("books/author/<int:id>/", AuthorView.as_view(), name="author"),
     path("users/profile/<int:id>/", ProfileView.as_view(), name="profile"),
+    path("users/profile/notes/create/", NoteCreateView.as_view(), name="create_note"),
+    path("users/profile/notes/", NotesView.as_view(), name="notes"),
     path("users/black/window/activate/", BlackWindowView.as_view(), name="black_window"),
     path("users/black/window/deactivate/", BlackWindowDelView.as_view(), name="black_window_del"),
     path("about/us/", AboutUsView.as_view(), name="about_us"),  
@@ -26,6 +29,9 @@ urlpatterns = [
     path("books/book-author/create/", BookAuthorCreateView.as_view(), name="b_a_create"),
     path("books/update/<int:id>/", BookUpdateView.as_view(), name="book_update"),
     path("books/delete/<int:id>/", BookDeleteView.as_view(), name="book_delete"),
+    path("books/like/<int:id>/", LikeBookView.as_view(), name="like_book"),
+    path("books/like/delete/<int:id>/", DeleteBookLikeView.as_view(), name="delete_like_book"),
+    path("books/my-favorite/", MyFavoriteBooksView.as_view(), name="my_books"),
     path("books/author/update/<int:id>/", AuthorUpdateView.as_view(), name="author_update"),
     path("books/author/delete/<int:id>/", AuthorDeleteView.as_view(), name="author_delete"),
     path("books/book-author/update/<int:id>/", BookAuthorUpdateView.as_view(), name="b_a_update"),
@@ -37,4 +43,5 @@ urlpatterns = [
     path("mentorship/", MentorshipView.as_view(), name="mentorship"),
     path("trading-investing/", TradingInvestingView.as_view(), name="trading_investing"),
     path("mentorship/create/", MentorshipCreateView.as_view(), name="mentorship_create"),
+    path("investing-courses/create/", InvestCoursesCreateView.as_view(), name="invest_courses_create"),
 ]

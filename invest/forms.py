@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from invest.models import User, Book, Author, BookAuthor, Mentorship, InvestingCourses
+from invest.models import User, Book, Author, BookAuthor, Mentorship, InvestingCourses, Notes
 
 class UserCreateForm(ModelForm):
     class Meta:
@@ -47,3 +47,9 @@ class InvestingCoursesCreateForm(ModelForm):
     class Meta:
         model = InvestingCourses
         fields = ("title", "video_url", )
+
+    
+class NotesCreateForm(ModelForm):
+    class Meta:
+        model = Notes
+        fields = ("title", "text", )
