@@ -10,17 +10,21 @@
             {% else %}
                 <img src="{% static './images/profile_picture.jpg' %}" alt="img">
             {% endif %}
-            </div>
-            <div class="profile-baz">
-                <h5>{{ user.username }}</h5>
-                <h6>{{ user.first_name }} {{ user.last_name }}</h6>
-                <p>{{ user.email }}</p>
-                <a class="btn btn-outline-primary" href="{% url 'profile_update' user.id %}">Edit profile</a> | 
-                {% if user.is_staff %}
-                    <a class="btn btn-outline-warning" href="{% url 'admin_page' %}">Site management</a>
-                {% endif %}
-            </div>
         </div>
+        <div class="profile-baz">
+            <h5>{{ user.username }}</h5>
+            <h6>{{ user.first_name }} {{ user.last_name }}</h6>
+            <p>{{ user.email }}</p>
+            <a class="btn btn-outline-primary" href="{% url 'profile_update' user.id %}">Edit profile</a>
+            {% if user.is_staff %}
+                 | <a class="btn btn-outline-warning" href="{% url 'admin_page' %}">Site management</a>
+            {% endif %}
+        </div>
+        {% if request.user.is_staff %}
+            <div class="profile-notes">
+                <a href="{% url 'notes' %}"><i class="bi bi-pen"></i> Notes</a>
+            </div>
+        {% endif %}
     </div>  
 </div>
 {% endblock content %}

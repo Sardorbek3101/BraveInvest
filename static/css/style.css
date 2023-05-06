@@ -52,6 +52,28 @@ footer{
     margin: auto 30px;
 }
 
+.nav-aside-links li a {
+    position: relative;
+}
+
+.nav-aside-links li a:before {
+    content: "";
+    position: absolute;
+    height: 3px;
+    width: 0;
+    left: 0;
+    right: 0;
+    background-color: yellowgreen;
+    border-radius: 15px;
+    transition: 0.5s;
+    margin: auto;
+    bottom: -6px;
+}
+
+.nav-aside-links li a:hover:before {
+    width: 100%;
+}
+
 .nav-logo{
     display: flex;
     align-items: center;
@@ -522,6 +544,7 @@ a.admin-table-set-link{
 .profile_divs {
     margin-top: 30px;
     display: flex;
+    position: relative;
     justify-content: space-around;
     padding: 0 100px;
     align-items: center;
@@ -592,6 +615,18 @@ p.habbit_text {
     margin: 30px auto;
     text-align: center;
     font-family: 'bootstrap-icons';
+}
+.profile-notes {
+    position: absolute;
+    right: 0;
+    top: 45%;
+}
+
+.profile-notes a {
+    text-decoration: none;
+    padding: 5px 10px;
+    color: yellowgreen;
+    box-shadow: 0 0 1px 0 #222;
 }
 /* .login_containner{
     background-color: #020512d9;

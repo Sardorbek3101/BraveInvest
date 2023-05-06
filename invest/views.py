@@ -498,5 +498,7 @@ class NoteCreateView(View):
 
 class NotesView(View):
     def get(self, request):
-        notes = Notes.objects.all()
-        return render(request, "notes.html", {"notes":notes})
+        if request.user.is_staff:
+            notes = Notes.objects.all()
+            return render(request, "notes.html", {"notes":notes})
+        return redirect(reverse("profile", kwargs={"id":request.user.id}))
