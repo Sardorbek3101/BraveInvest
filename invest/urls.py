@@ -4,7 +4,7 @@ from invest.views import HomeView, UserRegisterView, UserLoginView, UserLogoutVi
     AdminPageView, BookCreateView, AuthorCreateView, BookAuthorCreateView, BookUpdateView, BookDeleteView, AuthorUpdateView, \
     AuthorDeleteView, BookAuthorUpdateView, BookAuthorDeleteView, UserDeleteView, ProfileUpdateView, HabitsView, FinancialsView, \
     MentorshipView, TradingInvestingView, MentorshipCreateView, InvestCoursesCreateView, LikeBookView, DeleteBookLikeView, \
-    MyFavoriteBooksView, NoteCreateView, NotesView
+    MyFavoriteBooksView, NoteCreateView, NotesView, QuestionsView
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
@@ -24,6 +24,7 @@ urlpatterns = [
     path("users/black/window/deactivate/", BlackWindowDelView.as_view(), name="black_window_del"),
     path("about/us/", AboutUsView.as_view(), name="about_us"),  
     path("users/staff/page/", AdminPageView.as_view(), name="admin_page"), 
+    path("users/staff/page/questions/", QuestionsView.as_view(), name="questions"),
     path("books/create/", BookCreateView.as_view(), name="book_create"),
     path("books/author/create/", AuthorCreateView.as_view(), name="author_create"),
     path("books/book-author/create/", BookAuthorCreateView.as_view(), name="b_a_create"),

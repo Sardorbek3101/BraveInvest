@@ -1,7 +1,14 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load crispy_forms_tags %}
+
 {% block content %}
-
-
-
+<div class="create-containner">
+    <div class="you-vid">
+        <h2>Any questions about our service?</h2>
+    </div>
+    <form method="post">{% csrf_token %}
+        {{ form | crispy }}
+        <button class="btn btn-outline-primary" type="submit">Send</button>
+    </form>
+</div>
 {% endblock content %}

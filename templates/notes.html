@@ -1,13 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-{% if notes %}
-    {% for note in notes %}
-        {% if note.user == request.user %}
-            {{ note.title }}
+<div class="habits-content">
+    {% if request.user.is_staff %}
+        <div class="admin-table admin-table-create">
+            <a class="admin-table-line" href="{% url 'create_note' %}">
+                <i class="bi bi-database-add"></i> &nbsp Add Notes
+            </a>
+        </div>
+    {% endif %}
+        {% if notes %}
+            {% for note in notes %}
+                {% if note.user == request.user %}
+                    <div class="you-vid">
+                        <div class="note">
+                            <h2>{{ note.title }}</h2>
+                            <p>{{ note.text }}</p>
+                            <b>{{ note.created_at }}</b>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
         {% endif %}
-    {% endfor %}
-{% endif %}
-
+</div>
 {% endblock content %}

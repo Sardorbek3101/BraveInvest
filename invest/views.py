@@ -1,8 +1,9 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views import View
-from .models import Book, Author, User, BookAuthor, Mentorship, InvestingCourses, Notes
-from invest.forms import UserCreateForm, BookCreateForm, AuthorCreateForm, BookAuthorCreateForm, UserUpdateForm, MentorshipCreateForm, InvestingCoursesCreateForm, NotesCreateForm
+from .models import Book, Author, User, BookAuthor, Mentorship, InvestingCourses, Notes, Questions
+from invest.forms import UserCreateForm, BookCreateForm, AuthorCreateForm, BookAuthorCreateForm,\
+    UserUpdateForm, MentorshipCreateForm, InvestingCoursesCreateForm, NotesCreateForm, QuestionsCreateForm
 from django.core.paginator import Paginator
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
@@ -52,8 +53,21 @@ class UserLogoutView(View):
 
 class ContactUsView(View):
     def get(self, request):
-        return render(request, "contacts_us.html")
+        form = QuestionsCreateForm()
+        return render(request, "contacts_us.html", {"form":form})
     
+    def post(self, request):
+        form = QuestionsCreateForm(data=request.POST)
+        if form.is_valid():
+            Questions.objects.create(
+                topic = form.cleaned_data['topic'],
+                text = form.cleaned_data['text'],
+                user = request.user,
+            )
+            messages.success(request, "Message sent successfully")
+            return redirect("contacts_us")
+        else:
+            return render(request, "contacts_us.html", {"form":form})
 
 class AboutUsView(View):
     def get(self, request):
@@ -488,8 +502,12 @@ class NoteCreateView(View):
         if request.user.is_staff:
             form = NotesCreateForm(data=request.POST)
             if form.is_valid():
-                form.save()
-                return redirect(reverse("profile", kwargs={"id":request.user.id}))
+                Notes.objects.create(
+                    user = request.user,
+                    title = form.cleaned_data["title"],
+                    text = form.cleaned_data["text"]
+                )
+                return redirect("notes")
             else:
                 return render(request, "note_create.html", {"form":form})
         else:
@@ -502,3 +520,9 @@ class NotesView(View):
             notes = Notes.objects.all()
             return render(request, "notes.html", {"notes":notes})
         return redirect(reverse("profile", kwargs={"id":request.user.id}))
+
+
+class QuestionsView(View):
+    def get(self, request):
+        questions = Questions.objects.all()
+        return render(request, "questions.html", {"quest":questions})

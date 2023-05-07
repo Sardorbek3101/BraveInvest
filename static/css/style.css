@@ -590,9 +590,10 @@ h1.titles {
 }
 .you-vid{
     text-align: center;
+    margin: 50px 0;
 }
 .you-vid h2 {
-    margin: 35px 0px;
+    margin: 25px 0px;
     font-weight: 700;
 }
 p.habbit_text {
@@ -628,6 +629,19 @@ p.habbit_text {
     color: yellowgreen;
     box-shadow: 0 0 1px 0 #222;
 }
+
+.note{
+    width: 90%;
+    margin: auto;
+}
+.note p {
+    font-size: 17px;
+    color: #333;
+    line-height: 220%;
+    font-weight: 500;
+    letter-spacing: 1.1px;
+}
+
 /* .login_containner{
     background-color: #020512d9;
     width: 100%;

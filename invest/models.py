@@ -63,3 +63,19 @@ class Notes(models.Model):
 
     def __str__(self):
         return self.title
+    
+
+class Questions(models.Model):
+    TOPIC_COISES = [
+        ("Any questions about our service","Any questions about our service?"),
+        ("Any recommendations about courses","Any recommendations about courses?"),
+        ("Any issues?", "Any issues"),
+        ("Support us..", "Support us"),
+    ]
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    topic = models.CharField(max_length=200, choices=TOPIC_COISES, default="Any questions about our service")
+    text = models.TextField()
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.topic
