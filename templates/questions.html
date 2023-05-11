@@ -2,5 +2,19 @@
 
 {% block content %}
 
+<div class="habits-content">
+    {% if quest %}
+        {% for q in quest %}
+            <div class="you-vid">
+                <div class="note">
+                    <h2>{{ q.topic }}</h2>
+                    <p>{{ q.text }}</p>
+                    <a href="{% url 'profile' q.user.id %}">{{ q.user.username }}</a>
+                     | <b>{{ q.created_at }}</b>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
 
 {% endblock content %}

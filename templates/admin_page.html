@@ -43,12 +43,11 @@
 </div>
 {% endif %}
 <div class="admin-containner">
-
+    <p style="text-align: center"><a class="admin-com-link" href="{% url 'questions' %}">Comments and suggestions</a></p>
 <div class="admin-boxes">
     <a class="admin-box" href="?table=users">
         <h3>Users</h3>
         <h6>{% if table_value == "users" %}{{ table.count }}{% else %}?{% endif %}</h6>  
-        
     </a>
     <a class="admin-box" href="?table=books">
         <h3>Books</h3>

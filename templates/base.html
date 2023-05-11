@@ -63,13 +63,16 @@
             .profile-notes a{
                 box-shadow: 0 0 1px 0 #fff;
             }
+            a.admin-com-link{
+                color: white;
+            }
         </style>
     {% endif %}
 </head>
 <body>
     <div class="wrapper">
-    <header style="{% if not request.path == home_url %}position:sticky; top:0{% endif %}">
-        <div style="{% if request.path == home_url or request.path == about_us %}position:fixed{% endif %}" id="nav" class="nav">
+    <header>
+        <div id="nav" class="nav {% if request.path == home_url or request.path == about_us %}nav-fixed{% endif %}">
             <div class="nav-logo">
                 <a href="{% url 'home' %}">
                 <img class="nav-logotip" src="{% static 'images/1676526553026.png' %}" alt="">
@@ -79,8 +82,8 @@
             <div class="nav-links">
                 <ul>
                     <li><a class="{% if request.path == home_url %}nav-link-active{% endif %}" href="{% url 'home' %}">Home</a></li>
-                    <li><a class="{% if request.path == contacts_us %}nav-link-active{% endif %}" href="{% url 'contacts_us' %}">Contact us</a></li>
                     <li><a class="{% if request.path == about_us %}nav-link-active{% endif %}" href="{% url 'about_us' %}">About us</a></li>
+                    <li style="margin-right: 0"><a class="{% if request.path == contacts_us %}nav-link-active{% endif %}" href="{% url 'contacts_us' %}">Contact us</a></li>
                     {% comment %} <li><a class="{% if request.path == mentorship_url %}nav-link-active{% endif %}" href="{{ mentorship_url }}">Mentorship program</a></li> {% endcomment %}
                 </ul>
             </div>

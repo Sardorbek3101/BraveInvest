@@ -13,6 +13,10 @@ main{
 footer{
     flex: 0 0 auto;
 }
+header{
+    position: sticky;
+    top: 0;
+}
 .nav {
     display: flex;
     justify-content: space-around;
@@ -26,6 +30,9 @@ footer{
     top: 0;
     width: 100%;
     z-index: 100;
+}
+.nav-fixed{
+    position: fixed;
 }
 .fixed-nav{
     position: fixed;
@@ -131,7 +138,7 @@ div#nav h3 {
     right: auto;
     padding-top: 0;
     font-weight: 700;
-    bottom: 60%;
+    top: 40%;
     left: 15%;
     padding-bottom: 0;
     color: #fff;
@@ -183,7 +190,6 @@ a.contacts-card-link {
 .contacts-card img {
     width: 100%;
     border-radius: 30px;
-    min-height: 380px;
 }
 .contacts-card:hover {
     box-shadow: 0px 0px 25px 0px #97a1d0;
@@ -316,6 +322,7 @@ a.contacts-card-link {
     text-align: center;
     /* background: rgba(20, 20, 20, 0.5); */
     background-color: #18202e;
+    overflow: auto;
     height: 100%;
     z-index: 500;
     right: -100%;
@@ -602,7 +609,7 @@ p.habbit_text {
 }
 .my_favorite_books{
     float: right;
-    margin-right: 150px;
+    margin-right: 120px;
     margin-top: -27px;
 }
 .my_favorite_books a{
@@ -632,6 +639,8 @@ p.habbit_text {
 
 .note{
     width: 90%;
+    border: solid 1px;
+    padding: 10px 20px;
     margin: auto;
 }
 .note p {
@@ -641,7 +650,306 @@ p.habbit_text {
     font-weight: 500;
     letter-spacing: 1.1px;
 }
-
+a.admin-com-link {
+    color: black;
+}
+@media (max-width:1267px) {
+    .cards-accordions {
+        display: block;
+        /* justify-content: space-around; */
+        /* align-items: center; */
+        /* margin-top: 60px; */
+        width: 70%;
+        margin: 60px auto;
+        /* margin-bottom: 60px; */
+    }
+    .card-caccordion {
+        width: 100%;
+        margin-top: 50px;
+        text-align: center;
+    }    
+    .contacts-cards {
+        display: block;
+        margin: 50px auto;
+        width: 70%;
+        margin-top: 50px;
+        /* justify-content: space-evenly; */
+        /* align-items: center; */
+    }
+    .contacts-card {
+        width: 100%;
+        display: block;
+        margin: 50px auto;
+    }
+    .nav{
+        position: relative;
+    }
+    header {
+        position: relative;
+    }
+    .about_text {
+        width: 50%;
+    }
+    .profile-cont {
+        width: 68%;
+    }
+    .profile-notes {
+        right: 5%;
+    }
+    .habbits-video {
+        height: 400px;
+    }
+    .habbits-video {
+        height: 350px;
+    }
+    .admin-containner {
+        width: 90%;
+    }
+}
+@media (max-width: 935px){
+    .cards-accordions {
+        width: 90%;
+    }
+    .contacts-cards{
+        width: 90%;
+    }
+    .carousel-caption{
+        top: 20%;
+    }
+    .base-footer{
+        padding: 18px 80px;
+    }
+    .nav-links li {
+        margin: auto 24px;
+    }
+    .nav-aside{
+        width: 35%;
+    }
+    .about_text {
+        width: 60%;
+    }
+    .profile-cont {
+        width: 85%;
+    }
+    .my_favorite_books {
+        margin-right: 80px;
+    }
+    .you-video {
+        width: 90%;
+    }
+}
+@media (max-width: 750px){
+    .nav-aside {
+        width: 45%;
+    }
+    .about_text {
+        width: 70%;
+    }
+    .zag-oknno{
+        height: 350px;
+    }
+    .create-containner {
+        width: 70%;
+    }
+    .you-vid {
+        margin: 35px 0;
+    }
+    .profile-cont {
+        width: 100%;
+    }
+    .profile_divs {
+        padding: 0 50px;
+    }
+    .my_favorite_books {
+        margin-right: 20px;
+    }
+    .books {
+        width: 100%;
+    }
+    .habbits-video {
+        height: 300px;
+    }
+}
+@media (max-width:533px){
+    .carousel-caption{
+        top:10%;
+        font-size: 14px;
+    }
+    .base-footer {
+        padding: 18px 30px;
+    }
+    .contacts-cards h3{
+        font-size: 25px;
+    }
+    h1.titles{
+        font-size: 30px;
+        margin: 40px;
+    }
+    .card-caccordion h1{
+        font-size: 25px;
+    }
+    .nav {
+        position: relative;
+    }
+    .nav-aside {
+        width: 60%;
+    }
+    .about_text {
+        width: 80%;
+    }
+    .zag-oknno {
+        height: 270px;
+    }
+    .create-containner {
+        width: 80%;
+    }
+    .profile_divs {
+        padding: 0;
+    }
+    .boks-search {
+        width: 70%;
+        margin: 40px auto 0;
+    }
+    .my_favorite_books {
+        margin: 35px auto 0;
+        display: block;
+        text-align: center;
+        float: none;
+        width: 100%;
+    }
+    .book-detail {
+        margin: 50px auto;
+        display: block;
+    }
+    .book-cover_picture {
+        width: 40%;
+        margin: auto;
+    }
+    .book-description {
+        width: 70%;
+        margin: 50px auto;
+    }
+    .habits-content {
+        width: 90%;
+    }
+    .habbits-video {
+        height: 250px;
+    }    
+}
+@media (max-width: 450px){
+    .carousel-caption a {
+        font-size: 14px;
+    }
+    .carousel-caption {
+        top: 7%;
+        font-size: 12px;
+    }
+    .contacts-card {
+        padding: 10px;
+    }
+    .profile_divs {
+        display: block;
+        margin: 50px auto;
+    }
+    .profile_img {
+        display: block;
+        margin: auto;
+    }   
+    .profile-baz {
+        text-align: center;
+        display: block;
+    } 
+    .profile-notes {
+        position: unset;
+        margin-top: 40px;
+    }
+    .profile-notes a {
+        box-shadow: 0px 1px 3px 0px #222;
+    }
+    .habits-content {
+        width: 95%;
+    }   
+    .you-video {
+        width: 95%;
+    }
+}
+@media (max-width:380px){
+    .carousel-caption h5 {
+        font-size: 16px;
+    }    
+    .carousel-caption a {
+        font-size: 10px;
+    }
+    .carousel-caption {
+        top: 7%;
+        font-size: 10px;
+    }
+    h1.titles {
+        font-size: 25px;
+        margin: 40px 20px;
+    }
+    .contacts-cards h3 {
+        font-size: 22px;
+    }
+    .card-caccordion h1 {
+        font-size: 22px;
+    }
+    .foot-sot-links li {
+        margin: 0 12px;
+        font-size: 16px;
+    }
+    a.foot-sot-contact-link {
+        font-size: 18px;
+    }
+    .foot-sot-links p{
+        font-size: 14px;
+    }
+    .foot-links li a {
+        font-size: 15px;
+    }
+    .nav-links li {
+        margin: auto 15px;
+    }
+    .nav-aside {
+        width: 90%;
+    }
+    .zag-oknno {
+        height: 220px;
+    }
+    .create-containner {
+        width: 90%;
+    }
+    .you-vid {
+        margin: 30px 0;
+    }    
+    .book-description {
+        width: 80%;
+    }
+    .habbits-video {
+        height: 200px;
+    }
+}
+@media (max-width: 310px){
+    .carousel-caption h5 {
+        font-size: 12px;
+    }
+    .carousel-caption a {
+        font-size: 8px;
+    }
+    .carousel-caption {
+        top: 7%;
+        font-size: 8px;
+    }
+    .nav-links li{
+        margin: auto 15px;
+    }
+    .about_text {
+        font-size: 15px;
+    }
+    .habbits-video {
+        height: 150px;
+    }
+}
 /* .login_containner{
     background-color: #020512d9;
     width: 100%;
