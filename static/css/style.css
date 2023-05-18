@@ -15,6 +15,7 @@ footer{
 }
 header{
     position: sticky;
+    z-index: 500;
     top: 0;
 }
 .nav {
@@ -705,6 +706,9 @@ a.admin-com-link {
     .admin-containner {
         width: 90%;
     }
+    .informs {
+        width: 50%;
+    }
 }
 @media (max-width: 935px){
     .cards-accordions {
@@ -752,6 +756,10 @@ a.admin-com-link {
         width: 80%;
         margin: 40px auto 0;
     }
+    .informs {
+        margin: 40px auto;
+        width: 60%;
+    }
 }
 @media (max-width: 750px){
     .nav-aside {
@@ -792,7 +800,7 @@ a.admin-com-link {
     }
     .admin-table-create a.admin-table-line {
         font-size: 14px;
-    }
+    } 
 }
 @media (max-width:533px){
     .carousel-caption{
@@ -869,6 +877,10 @@ a.admin-com-link {
     a.admin-table-set-link {
         font-size: 11px;
     }    
+    .informs {
+        width: 70%;
+        margin: 30px auto;
+    }
 }
 @media (max-width: 450px){
     .carousel-caption a {
@@ -1017,6 +1029,9 @@ a.admin-com-link {
     .admin-table-create a.admin-table-line {
         font-size: 10px;
     }
+    .informs {
+        width: 80%;
+    }
 }
 @media (max-width: 310px){
     .carousel-caption h5 {
@@ -1037,6 +1052,10 @@ a.admin-com-link {
     }
     .habbits-video {
         height: 150px;
+    }
+    .informs {
+        width: 90%;
+        margin: 20px auto;
     }
 }
 /* .login_containner{

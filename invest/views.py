@@ -7,6 +7,7 @@ from invest.forms import UserCreateForm, BookCreateForm, AuthorCreateForm, BookA
 from django.core.paginator import Paginator
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
+from django.contrib.auth.hashers import check_password
 from django.contrib import messages
 
 class HomeView(View):
@@ -43,6 +44,35 @@ class UserLoginView(View):
         else:
             return render(request, "users/login.html", {"form":login_form})
         
+
+class ChangePasswordView(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            return render(request, "change_password.html")
+        else:
+            return redirect("login")
+    
+    def post(self, request):
+        if request.user.is_authenticated:
+            user = request.user
+            old_pass = request.POST['old_pass']
+            new_pass = request.POST['new_pass']
+            check = request.POST['check_new_pass']
+            if check_password(old_pass, request.user.password):
+                if new_pass == check:
+                    user.set_password(new_pass)
+                    user.save()
+                    messages.success(request, "Password changed successfully")
+                    return redirect(reverse("profile", kwargs={"id":request.user.id}))
+                else:
+                    messages.warning(request,"new passwords do not match")
+                    return redirect("change_password")
+            else:
+                messages.warning(request, "Old password entered incorrectly")
+                return redirect("change_password")
+        else:
+            return redirect("login")
+
 
 class UserLogoutView(View):
     def get(self, request):
@@ -119,19 +149,25 @@ class ProfileView(View):
     
 
 class ProfileUpdateView(View):
-    def get(self, request, id):
-        user = User.objects.get(id=id)
-        form = UserUpdateForm(instance=user)
-        return render(request, "profile_update.html", {"form":form})
-    
-    def post(self, request, id):
-        user = User.objects.get(id=id)
-        form = UserUpdateForm(instance=user, data=request.POST, files=request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect(reverse("profile", kwargs={"id":user.id}))
-        else:
+    def get(self, request):
+        if request.user.is_authenticated:
+            user = request.user
+            form = UserUpdateForm(instance=user)
             return render(request, "profile_update.html", {"form":form})
+        else:
+            return redirect("login")
+    
+    def post(self, request):
+        if request.user.is_authenticated:
+            user = request.user
+            form = UserUpdateForm(instance=user, data=request.POST, files=request.FILES)
+            if form.is_valid():
+                form.save()
+                return redirect(reverse("profile", kwargs={"id":user.id}))
+            else:
+                return render(request, "profile_update.html", {"form":form})
+        else:
+            return redirect("login")
 
 
 class BlackWindowView(View):

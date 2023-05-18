@@ -4,13 +4,14 @@ from invest.views import HomeView, UserRegisterView, UserLoginView, UserLogoutVi
     AdminPageView, BookCreateView, AuthorCreateView, BookAuthorCreateView, BookUpdateView, BookDeleteView, AuthorUpdateView, \
     AuthorDeleteView, BookAuthorUpdateView, BookAuthorDeleteView, UserDeleteView, ProfileUpdateView, HabitsView, FinancialsView, \
     MentorshipView, TradingInvestingView, MentorshipCreateView, InvestCoursesCreateView, LikeBookView, DeleteBookLikeView, \
-    MyFavoriteBooksView, NoteCreateView, NotesView, QuestionsView
+    MyFavoriteBooksView, NoteCreateView, NotesView, QuestionsView, ChangePasswordView
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
     path("users/register/", UserRegisterView.as_view(), name="user_register"),
     path("users/login/", UserLoginView.as_view(), name="login"),
     path("users/logout/", UserLogoutView.as_view(), name="logout"),
+    path("users/change/password/", ChangePasswordView.as_view(), name="change_password"),
     path("contacts-us/", ContactUsView.as_view(), name="contacts_us"),
     path("selfimprovement/detail/", SelfImprovementDetailView.as_view(), name="selfimprovementdetail"),
     path("investment/detail/", InvestmentDetailView.as_view(), name="investment_detail"),
@@ -38,7 +39,7 @@ urlpatterns = [
     path("books/book-author/update/<int:id>/", BookAuthorUpdateView.as_view(), name="b_a_update"),
     path("books/book-author/delete/<int:id>/", BookAuthorDeleteView.as_view(), name="b_a_delete"),
     path("users/delete/<int:id>/", UserDeleteView.as_view(), name="admin_users_delete"),
-    path("users/profile/update/<int:id>/", ProfileUpdateView.as_view(), name="profile_update"),
+    path("users/profile/update/", ProfileUpdateView.as_view(), name="profile_update"),
     path("habits/", HabitsView.as_view(), name="habits"),
     path("financial/", FinancialsView.as_view(), name="financial"),
     path("mentorship/", MentorshipView.as_view(), name="mentorship"),
